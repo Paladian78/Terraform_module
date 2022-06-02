@@ -4,9 +4,9 @@ provider "azurerm" {
   
 module "storage_account" {
   source = "./modules/storage_account"
-  resource_group_name = var.resorce_group_name
-    location = var.location
-    storage_account_name = var.storage_account_name
+  resource_group_name = "myrggrp"
+    location = "eastasia"
+    storage_account_name = "functionsapptestsa"
 }
 
 module "logic_app" {
