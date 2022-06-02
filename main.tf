@@ -10,7 +10,7 @@ module "virtual_machine" {
 
 module "app_service" {
     source = "./modules/app_service"
-    # create_reource_group = false
+    create_reource_group = false
     prefix="myfrst"
     location= "eastasia"
     resource_group_name= "myfrst-resources"
