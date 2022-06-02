@@ -22,7 +22,7 @@ resource "azurerm_key_vault" "main" {
 
   access_policy {
     tenant_id = data.azurerm_client_config.current.tenant_id
-    object_id = null
+    object_id = data.azurerm_client_config.current.service_principal_object_id
 
     key_permissions = [
       "Get",
