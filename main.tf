@@ -2,21 +2,16 @@ provider "azurerm" {
   features {}
 }
   
-
-
-module "virtual_machine" {
-    source = "./modules/virtual_machines"
-    # create_reource_group = false
-    prefix="myfrst"
-    location="eastasia"
-    resource_group_name="myfrst-resources"
+module "storage_account" {
+  source = "./modules/storage_account"
+  resource_group_name = var.resorce_group_name
+    location = var.location
 }
 
-module "app_service" {
-    source = "./modules/app_service"
-    resource_group_name= module.virtual_machine.rg_name
-    prefix="myfrst"
-    location= "eastasia"
-    
+module "logic_app" {
+  source = "./modules/logic_app"
+  resource_group_name = module.storage_account.rg_name
+    location = var.location
+    storage_account_name = module.storage_account.strg_name
+    storage_account_access_key = module.storage_account.strg_key
 }
-  
