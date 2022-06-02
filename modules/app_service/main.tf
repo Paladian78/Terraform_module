@@ -1,6 +1,4 @@
-provider "azurerm" {
-  features {}
-}
+
   
 resource "azurerm_service_plan" "main" {
   name                = "${var.prefix}-aappsp"
