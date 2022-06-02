@@ -6,7 +6,7 @@ module "storage_account" {
   source = "./modules/storage_account"
   resource_group_name = "myrggrp"
     location = "eastasia"
-    storage_account_name = "functionsapptestsa"
+    storage_account_name = "functionsapptestsamystrg"
 }
 
 module "logic_app" {
