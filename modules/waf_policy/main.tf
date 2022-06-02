@@ -55,7 +55,7 @@ resource "azurerm_web_application_firewall_policy" "main" {
     mode                        = "Prevention"
     request_body_check          = true
     file_upload_limit_in_mb     = 100
-    main = 128
+    # main = 128
   }
 
   managed_rules {
