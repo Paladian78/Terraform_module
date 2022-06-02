@@ -1,3 +1,7 @@
+provider "azurerm" {
+  features {}
+}
+  
 
 
 module "virtual_machine" {
@@ -10,9 +14,9 @@ module "virtual_machine" {
 
 module "app_service" {
     source = "./modules/app_service"
-    create_reource_group = false
+    resource_group_name= module.virtual_machine.rg_name
     prefix="myfrst"
     location= "eastasia"
-    resource_group_name= "myfrst-resources"
+    
 }
   

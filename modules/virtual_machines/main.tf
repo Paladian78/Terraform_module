@@ -6,7 +6,10 @@ resource "azurerm_resource_group" "main" {
   name = "myfrst-resources"
   location = "eastasia"
 }
-
+output "rg_name" {
+  value = "${azurerm_resource_group.main.name}"
+}
+  
 
 resource "azurerm_virtual_network" "main" {
   name                = "${var.prefix}-network"
