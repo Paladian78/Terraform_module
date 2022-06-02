@@ -7,7 +7,7 @@ resource "azurerm_resource_group" "main" {
   location = var.location
 }
 output "rg_name" {
-  value = azurerm_resource_group.main.resorce_group_name
+  value = azurerm_resource_group.main.name
 }
   
 
