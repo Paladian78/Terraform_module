@@ -3,7 +3,7 @@ provider "azurerm" {
 }
   
 resource "azurerm_app_service_plan" "main" {
-  name                = "azure-functions-test-service-plan"
+  name                = var.app_service_plan_name
   location            = var.location
   resource_group_name = var.resource_group_name
 
