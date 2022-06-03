@@ -106,22 +106,22 @@ module "storage_account" {
   ############################################################################################
 
 module "virtual_machine" {
-  source          = "./module/virtual_machine"
+  source          = "./modules/virtual_machine"
   service_rg_name = var.resource_group_name
 }
 
 module "private_link_service" {
-  source          = "./module/private_link_service"
+  source          = "./modules/private_link_service"
   service_rg_name = var.resource_group_name
 }
 
 module "eventhub" {
-  source          = "./module/eventhub"
+  source          = "./modules/eventhub"
   service_rg_name = var.resource_group_name
 }
 
 module "sql" {
-  source          = "./module/sql"
+  source          = "./modules/sql"
   service_rg_name = var.resource_group_name
   sec_grp         = module.virtual_machine.sec_grp
   sec_grp_id      = module.virtual_machine.sec_grp_id
