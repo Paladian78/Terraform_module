@@ -33,7 +33,7 @@ module "logic_app" {
     location = var.location
     storage_account_name = var.storage_account_name
     storage_account_access_key = module.storage_account.strg_key
-    app_service_plan_id = module.appservice_plan.app_service_plan_id
+    app_service_plan_id = module.appservice_plan_logic_app.app_service_plan_id
 }
 
 
@@ -63,7 +63,7 @@ module "function_app" {
     storage_account_name = var.storage_account_name
     storage_account_access_key = module.storage_account.strg_key
     function_app_name = "test-azure-functions"
-    app_service_plan_id = module.appservice_plan.app_service_plan_id
+    app_service_plan_id = module.appservice_plan_function_app.app_service_plan_id
 }
 
 
@@ -80,7 +80,7 @@ module "app_service" {
   resource_group_name = var.resource_group_name
     location = var.location
     function_app_name = "azure-functions_app_service"
-    app_service_plan_id = module.appservice_plan.app_service_plan_id
+    app_service_plan_id = module.appservice_plan_app_service.app_service_plan_id
 }
 
 
