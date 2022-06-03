@@ -23,7 +23,7 @@ module "storage_account" {
 
 module "appservice_plan_logic_app" {
   source = "./modules/appservice_plan"
-  resource_group_name = var.resorce_group_name
+  resource_group_name = var.resource_group_name
     location = "eastasia"
     app_service_plan_name = "myappserviceplan_logicaapp"
 }
@@ -51,7 +51,7 @@ module "logic_app" {
 
 module "appservice_plan_function_app" {
   source = "./modules/appservice_plan"
-  resource_group_name = var.resorce_group_name
+  resource_group_name = var.resource_group_name
     location = "eastasia"
     app_service_plan_name = "myappserviceplan_functionaapp"
 }
@@ -71,7 +71,7 @@ module "function_app" {
 
 module "appservice_plan_app_service" {
   source = "./modules/appservice_plan"
-  resource_group_name = var.resorce_group_name
+  resource_group_name = var.resource_group_name
     location = "eastasia"
     app_service_plan_name = "myappserviceplan_appservicee"
 }
@@ -79,7 +79,7 @@ module "app_service" {
   source = "./modules/app_service"
   resource_group_name = var.resource_group_name
     location = var.location
-    
+
     app_service_plan_id = module.appservice_plan.app_service_plan_id
 }
 
