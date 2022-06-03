@@ -93,8 +93,8 @@ resource "azurerm_application_gateway" "network" {
 }
 
 
-resource "azurerm_web_application_firewall_policy_application_gateway_association" "main" {
-  association_type        = "ApplicationGateway"
-  waf_policy_id           = var.waf_policy_id
-  application_gateway_id  = azurerm_application_gateway.main.id
-}
+# resource "azurerm_web_application_firewall_policy_application_gateway_association" "main" {
+#   association_type        = "ApplicationGateway"
+#   waf_policy_id           = var.waf_policy_id
+#   application_gateway_id  = azurerm_application_gateway.main.id
+# }
