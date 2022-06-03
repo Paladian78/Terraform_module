@@ -82,8 +82,9 @@ module "app_service" {
     app_service_name = "test-azure-functionsaa"
     app_service_plan_id = module.appservice_plan.app_service_plan_id
 }
-  
-}
+
+
+
 
 #######################################Application Gateway##############################################
 
