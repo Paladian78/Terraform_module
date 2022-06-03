@@ -88,18 +88,18 @@ module "app_service" {
 
 #######################################Application Gateway##############################################
 
-# module "waf_policy" {
-#   source = "./modules/waf_policy"
-#   resource_group_name = var.resource_group_name
-#     location = var.location
-#     waf_policy_name = "test-azure-functions-waf-policy-myywaf"
-# }
+module "waf_policy" {
+  source = "./modules/waf_policy"
+  resource_group_name = var.resource_group_name
+    location = var.location
+    waf_policy_name = "test-azure-functions-waf-policy-myywaf"
+}
   
-# module "app_gateway" {
-#   source = "./modules/app_gateway"
-#   resource_group_name = var.resource_group_name
-#     location = var.location
-#     app_gateway_name = "myaaapp-gateway-myappgw"
-#     waf_policy_id = module.waf_policy.waf_policy_id
-# }
+module "app_gateway" {
+  source = "./modules/app_gateway"
+  resource_group_name = var.resource_group_name
+    location = var.location
+    app_gateway_name = "myaaapp-gateway-myappgw"
+    waf_policy_id = module.waf_policy.waf_policy_id
+}
   
