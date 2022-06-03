@@ -33,7 +33,7 @@ module "logic_app" {
     location = var.location
     storage_account_name = var.storage_account_name
     storage_account_access_key = module.storage_account.strg_key
-    app_service_plan_id = module.appservice_plan_logic_app.app_service_plan_id
+    
 }
 
 
