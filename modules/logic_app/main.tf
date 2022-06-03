@@ -1,5 +1,13 @@
+resource "azurerm_app_service_plan" "main" {
+  name                = "azurelogiccappplan"
+  location            = var.location
+  resource_group_name = var.resource_group_name
 
-
+  sku {
+    tier = "WorkflowStandard"
+    size = "WS1"
+  }
+}
 
 resource "azurerm_logic_app_standard" "main" {
   name                       = "mylogicaappp"

@@ -21,12 +21,7 @@ module "storage_account" {
 
 #######################################LOGIC APP##############################################
 
-module "appservice_plan_logic_app" {
-  source = "./modules/appservice_plan"
-  resource_group_name = var.resource_group_name
-    location = "eastasia"
-    app_service_plan_name = "myappserviceplan_logicaapp"
-}
+
 module "logic_app" {
   source = "./modules/logic_app"
   resource_group_name = var.resource_group_name
