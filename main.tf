@@ -12,10 +12,7 @@ provider "azurerm" {
   features {}
 }
 
-resource "azurerm_resource_group" "main" {
-  name = var.resource_group_name
-  location = var.location
-}
+
   
 module "storage_account" {
   source = "./modules/storage_account"
@@ -33,7 +30,7 @@ module "logic_app" {
     location = var.location
     storage_account_name = var.storage_account_name
     storage_account_access_key = module.storage_account.strg_key
-    
+
 }
 
 
@@ -101,6 +98,15 @@ module "app_gateway" {
     location = var.location
     app_gateway_name = "myaaapp-gateway-myappgw"
     waf_policy_id = module.waf_policy.waf_policy_id
+}
+
+
+#################################################################################
+
+
+resource "azurerm_resource_group" "main" {
+  name = var.resource_group_name
+  location = var.location
 }
   
   ############################################################################################
