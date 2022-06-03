@@ -10,6 +10,6 @@ variable "location" {
   
 
 variable "storage_account_name" {
-   default = "functionsapptestsa"
+   default = "functionsapptestsaaa"
   description = "value for storage_account_name"
 }

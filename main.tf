@@ -1,11 +1,11 @@
-terraform{
-  required_providers{
-    azurerm{
-      source= "hashicorp/azurerm"
-      version = "=3.0.0"
-    }
-  }
-}
+# terraform{
+#   required_providers{
+#     azurerm{
+#       source= "hashicorp/azurerm"
+#       version = "=3.0.0"
+#     }
+#   }
+# }
 
 provider "azurerm" {
   
@@ -16,7 +16,7 @@ module "storage_account" {
   source = "./modules/storage_account"
   resource_group_name = "myrggrp"
     location = "eastasia"
-    storage_account_name = "functionsapptestsamystrg"
+    storage_account_name = var.storage_account_name
 }
 
 # module "logic_app" {
@@ -34,28 +34,28 @@ module "storage_account" {
 #     key_vault_name = "test-key-vault"
 # }
   
-# module "function_app" {
-#   source = "./modules/function_app"
+module "function_app" {
+  source = "./modules/function_app"
 
-#     resource_group_name = module.storage_account.rg_name
+    resource_group_name = var.resource_group_name
+    location = var.location
+    storage_account_name = var.storage_account_name
+    storage_account_access_key = module.storage_account.strg_key
+    function_app_name = "test-azure-functions"
+}
+
+# module "waf_policy" {
+#   source = "./modules/waf_policy"
+#   resource_group_name = module.storage_account.rg_name
 #     location = var.location
-#     storage_account_name = module.storage_account.strg_name
-#     storage_account_access_key = module.storage_account.strg_key
-#     function_app_name = "test-azure-functions"
+#     waf_policy_name = "test-azure-functions-waf-policy-myywaf"
 # }
-
-module "waf_policy" {
-  source = "./modules/waf_policy"
-  resource_group_name = module.storage_account.rg_name
-    location = var.location
-    waf_policy_name = "test-azure-functions-waf-policy-myywaf"
-}
   
-module "app_gateway" {
-  source = "./modules/app_gateway"
-  resource_group_name = module.storage_account.rg_name
-    location = var.location
-    app_gateway_name = "myaaapp-gateway-myappgw"
-    waf_policy_id = module.waf_policy.waf_policy_id
-}
+# module "app_gateway" {
+#   source = "./modules/app_gateway"
+#   resource_group_name = module.storage_account.rg_name
+#     location = var.location
+#     app_gateway_name = "myaaapp-gateway-myappgw"
+#     waf_policy_id = module.waf_policy.waf_policy_id
+# }
   
