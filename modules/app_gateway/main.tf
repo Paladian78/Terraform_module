@@ -1,3 +1,9 @@
+provider "azurerm" {
+  features {}
+}
+  
+
+
 resource "azurerm_virtual_network" "main" {
   name                = "main-networkaa"
   resource_group_name = var.resource_group_name

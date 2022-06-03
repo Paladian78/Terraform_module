@@ -22,3 +22,6 @@ variable "storage_account_access_key" {
 #   default = "value for storage_account_access_key"
   description = "value for storage_account_access_key"
 }
+variable "app_service_plan_id" {
+  
+}
