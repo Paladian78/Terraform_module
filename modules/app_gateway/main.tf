@@ -49,9 +49,9 @@ resource "azurerm_application_gateway" "network" {
   location            = var.location
 
   sku {
-    name     = "Standard_Small"
-    tier     = "Standard"
-    capacity = 2
+    name     = "WAF_v2"
+    tier     = "WAF_v2"
+    capacity = 4
   }
 
   gateway_ip_configuration {
