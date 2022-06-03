@@ -39,12 +39,12 @@ module "logic_app" {
 
 #######################################KEY VAULT##############################################
 
-# module "key_vault" {
-#   source = "./modules/key_vault"
-#   resource_group_name = var.resource_group_name
-#     location = var.location
-#     key_vault_name = "test-key-vault"
-# }
+module "key_vault" {
+  source = "./modules/key_vault"
+  resource_group_name = var.resource_group_name
+    location = var.location
+    key_vault_name = "test-key-vault"
+}
   
 
 #######################################FUNCTION APP##############################################
