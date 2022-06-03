@@ -1,5 +1,5 @@
 variable "resource_group_name" {
-   default = "azure-functions-test-rg"
+   default = "myresourcerggrp"
   description = "value for resorce_group_name"
 }
 
@@ -10,6 +10,6 @@ variable "location" {
   
 
 variable "storage_account_name" {
-   default = "functionsapptestsaaa"
+   default = "storagergaccc"
   description = "value for storage_account_name"
 }

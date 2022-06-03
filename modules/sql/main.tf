@@ -180,8 +180,8 @@ resource "azurerm_mssql_server" "server" {
 
   # Provide your azure active directories username and tenant id
   azuread_administrator {
-    login_username = "User Name"
-    object_id      = "00000000-0000-0000-0000-000000000000"
+    login_username = var.username
+    object_id      = var.object_id
   }
 }
 

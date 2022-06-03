@@ -2,6 +2,14 @@ provider "azurerm" {
   features {}
 }
 
+resource "azurerm_virtual_network" "vm_vnet" {
+  name                = "vm-virtual-network"
+  location            = var.location
+  resource_group_name = var.service_rg_name
+  address_space       = ["10.0.0.0/16"]
+  dns_servers         = ["10.0.0.4", "10.0.0.5"]
+}
+
 # Linux Virtual Machine
 resource "azurerm_network_security_group" "linux_nsg" {
   name                = "network-security-group-${var.linux}"
@@ -9,18 +17,18 @@ resource "azurerm_network_security_group" "linux_nsg" {
   resource_group_name = var.service_rg_name
 }
 
-resource "azurerm_virtual_network" "linux_vnet" {
-  name                = "vnet-${var.linux}"
-  address_space       = ["10.0.0.0/16"]
-  location            = var.location
-  resource_group_name = var.service_rg_name
+resource "azurerm_subnet" "linux_subnet" {
+  name                 = "subnet-linux"
+  resource_group_name  = var.service_rg_name
+  virtual_network_name = azurerm_virtual_network.vm_vnet.name
+  address_prefixes     = ["10.0.2.0/24"]
 }
 
-resource "azurerm_subnet" "linux_subnet" {
-  name                 = "subnet-${var.linux}"
-  resource_group_name  = var.service_rg_name
-  virtual_network_name = azurerm_virtual_network.linux_vnet.name
-  address_prefixes     = ["10.0.2.0/24"]
+resource "azurerm_public_ip" "linux_pi" {
+  name                = "public-ip-${var.linux}"
+  resource_group_name = var.service_rg_name
+  location            = var.location
+  allocation_method   = "Static"
 }
 
 resource "azurerm_network_interface" "linux_nic" {
@@ -32,6 +40,7 @@ resource "azurerm_network_interface" "linux_nic" {
     name                          = "internal"
     subnet_id                     = azurerm_subnet.linux_subnet.id
     private_ip_address_allocation = "Dynamic"
+    public_ip_address_id          = azurerm_public_ip.linux_pi.id
   }
 }
 
@@ -83,6 +92,12 @@ resource "azurerm_virtual_machine_data_disk_attachment" "linux_dd_attach" {
   caching            = "ReadWrite"
 }
 
+resource "azurerm_subnet_network_security_group_association" "linux_subnet_nsg" {
+  subnet_id                 = azurerm_subnet.linux_subnet.id
+  network_security_group_id = azurerm_network_security_group.linux_nsg.id
+}
+
+
 
 #------------------------------------------------------------------------------#
 
@@ -93,18 +108,18 @@ resource "azurerm_network_security_group" "win_nsg" {
   resource_group_name = var.service_rg_name
 }
 
-resource "azurerm_virtual_network" "win_vnet" {
-  name                = "vnet-${var.windows}"
-  address_space       = ["10.0.0.0/16"]
-  location            = var.location
-  resource_group_name = var.service_rg_name
+resource "azurerm_subnet" "win_subnet" {
+  name                 = "subnet-windows"
+  resource_group_name  = var.service_rg_name
+  virtual_network_name = azurerm_virtual_network.vm_vnet.name
+  address_prefixes     = ["10.0.2.0/24"]
 }
 
-resource "azurerm_subnet" "win_subnet" {
-  name                 = "subnet-${var.windows}"
-  resource_group_name  = var.service_rg_name
-  virtual_network_name = azurerm_virtual_network.win_vnet.name
-  address_prefixes     = ["10.0.2.0/24"]
+resource "azurerm_public_ip" "win_pi" {
+  name                = "public-ip-${var.windows}"
+  resource_group_name = var.service_rg_name
+  location            = var.location
+  allocation_method   = "Static"
 }
 
 resource "azurerm_network_interface" "win_nic" {
@@ -116,6 +131,7 @@ resource "azurerm_network_interface" "win_nic" {
     name                          = "internal"
     subnet_id                     = azurerm_subnet.win_subnet.id
     private_ip_address_allocation = "Dynamic"
+    public_ip_address_id          = azurerm_public_ip.win_pi.id
   }
 }
 
@@ -162,9 +178,13 @@ resource "azurerm_virtual_machine_data_disk_attachment" "win_dd_attach" {
   caching            = "ReadWrite"
 }
 
+resource "azurerm_subnet_network_security_group_association" "win_subnet_nsg" {
+  subnet_id                 = azurerm_subnet.win_subnet.id
+  network_security_group_id = azurerm_network_security_group.win_nsg.id
+}
 
 output "vnet" {
-  value = azurerm_virtual_network.linux_vnet.name
+  value = azurerm_virtual_network.vm_vnet.name
 }
 
 output "sec_grp" {

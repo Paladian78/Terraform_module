@@ -18,3 +18,13 @@ variable "sec_grp_id" {
 variable "vnet_name" {
   description = "vnet name"
 }
+
+variable "username" {
+  value       = ""
+  description = "Your Azure Active Directory Username"
+}
+
+variable "object_id" {
+  value       = ""
+  description = "Object id"
+}
