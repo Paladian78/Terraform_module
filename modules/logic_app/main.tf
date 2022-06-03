@@ -1,7 +1,5 @@
-provider "azurerm" {
-  features {}
-}
-  
+
+
 
 resource "azurerm_logic_app_standard" "main" {
   name                       = "test-azure-functions"

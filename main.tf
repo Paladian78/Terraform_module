@@ -14,7 +14,7 @@ provider "azurerm" {
   
 module "storage_account" {
   source = "./modules/storage_account"
-  resource_group_name = var.resorce_group_name
+  resource_group_name = var.resource_group_name
     location = "eastasia"
     storage_account_name = var.storage_account_name
 }
