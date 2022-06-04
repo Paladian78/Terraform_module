@@ -74,12 +74,12 @@ module "logic_app" {
   storage_account_access_key = module.storage_account.strg_key
 }
 
-module "key_vault" {
-  source              = "./modules/key_vault"
-  resource_group_name = azurerm_resource_group.rg_name.name
-  location            = var.location
-  key_vault_name      = "test-key-vault-0406"
-}
+# module "key_vault" {
+#   source              = "./modules/key_vault"
+#   resource_group_name = azurerm_resource_group.rg_name.name
+#   location            = var.location
+#   key_vault_name      = "test-key-vault-0406"
+# }
 
 module "appservice_plan_function_app" {
   source                = "./modules/appservice_plan"
