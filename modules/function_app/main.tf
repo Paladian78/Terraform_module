@@ -1,6 +1,4 @@
-provider "azurerm" {
-  features {}
-}
+
   
 
 resource "azurerm_function_app" "main" {

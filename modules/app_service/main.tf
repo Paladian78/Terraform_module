@@ -1,6 +1,4 @@
-provider "azurerm" {
-  features {}
-}
+
   
 resource "azurerm_app_service" "main" {
   name                = var.function_app_name

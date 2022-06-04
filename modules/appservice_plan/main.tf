@@ -1,6 +1,4 @@
-provider "azurerm" {
-  features {}
-}
+
   
 resource "azurerm_app_service_plan" "main" {
   name                = var.app_service_plan_name
