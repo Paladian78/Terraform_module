@@ -12,7 +12,6 @@ variable "linux" {
   description = "VM name"
 }
 
-variable "windows" {
-  default     = "windows-vm-0306"
-  description = "VM name"
+variable "vnet_name" {
+  description = "vnet name"
 }

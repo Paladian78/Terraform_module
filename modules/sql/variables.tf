@@ -19,12 +19,13 @@ variable "vnet_name" {
   description = "vnet name"
 }
 
+# Provide your azure active directories username and object id
 variable "username" {
-  value       = ""
+  default     = "Mohammad Amaan Khan"
   description = "Your Azure Active Directory Username"
 }
 
 variable "object_id" {
-  value       = ""
+  default     = "cb982425-08e2-4842-ae76-e1a96116e38a"
   description = "Object id"
 }

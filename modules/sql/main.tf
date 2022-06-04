@@ -178,7 +178,6 @@ resource "azurerm_mssql_server" "server" {
   administrator_login_password = "thisIsKat11"
   minimum_tls_version          = "1.2"
 
-  # Provide your azure active directories username and tenant id
   azuread_administrator {
     login_username = var.username
     object_id      = var.object_id
