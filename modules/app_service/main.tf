@@ -1,7 +1,7 @@
 provider "azurerm" {
   features {}
 }
-  
+
 resource "azurerm_app_service" "main" {
   name                = var.function_app_name
   location            = var.location
@@ -13,9 +13,9 @@ resource "azurerm_app_service" "main" {
     scm_type                 = "LocalGit"
   }
 
-#   connection_string {
-#     name  = "Database"
-#     type  = "SQLServer"
-#     value = "Server=some-server.mydomain.com;Integrated Security=SSPI"
-#   }
+  #   connection_string {
+  #     name  = "Database"
+  #     type  = "SQLServer"
+  #     value = "Server=some-server.mydomain.com;Integrated Security=SSPI"
+  #   }
 }

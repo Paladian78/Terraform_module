@@ -15,3 +15,8 @@ variable "windows" {
 variable "vnet_name" {
   description = "vnet name"
 }
+
+variable "vnet_rg_name" {
+  description = "value for resorce_group_name"
+}
+

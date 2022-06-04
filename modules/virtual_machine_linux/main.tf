@@ -6,12 +6,12 @@ provider "azurerm" {
 resource "azurerm_network_security_group" "linux_nsg" {
   name                = "network-security-group-${var.linux}"
   location            = var.location
-  resource_group_name = var.service_rg_name
+  resource_group_name = var.vnet_rg_name
 }
 
 resource "azurerm_subnet" "linux_subnet" {
   name                 = "subnet-linux"
-  resource_group_name  = var.service_rg_name
+  resource_group_name  = var.vnet_rg_name
   virtual_network_name = var.vnet_name
   address_prefixes     = ["10.0.2.0/24"]
 }

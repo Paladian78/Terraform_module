@@ -8,8 +8,8 @@ resource "azurerm_app_service_plan" "main" {
   resource_group_name = var.resource_group_name
 
   sku {
-    tier = "WorkflowStandard"
-    size = "WS1"
+    tier = "Standard"
+    size = "S1"
   }
 }
 

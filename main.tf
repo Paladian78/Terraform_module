@@ -18,25 +18,27 @@ resource "azurerm_resource_group" "rg_name" {
   location = var.location
 }
 
-resource "azurerm_resource_group" "vnetrg" {
-  name     = "virtualnetresourcegroup"
+resource "azurerm_resource_group" "vnet_rg" {
+  name     = var.vnet_rg_name
   location = var.location
 }
 
 module "virtual_network" {
   source          = "./modules/virtual_network"
-  service_rg_name = azurerm_resource_group.vnetrg.name
+  service_rg_name = azurerm_resource_group.vnet_rg.name
 }
 
 module "virtual_machine_linux" {
   source          = "./modules/virtual_machine_linux"
   service_rg_name = azurerm_resource_group.rg_name.name
+  vnet_rg_name    = azurerm_resource_group.vnet_rg.name
   vnet_name       = module.virtual_network.vnet_name
 }
 
 module "virtual_machine_win" {
   source          = "./modules/virtual_machine_win"
   service_rg_name = azurerm_resource_group.rg_name.name
+  vnet_rg_name    = azurerm_resource_group.vnet_rg.name
   vnet_name       = module.virtual_network.vnet_name
 }
 
@@ -95,7 +97,7 @@ module "function_app" {
   location                   = var.location
   storage_account_name       = var.storage_account_name
   storage_account_access_key = module.storage_account.strg_key
-  function_app_name          = "test-azure-functions0406"
+  function_app_name          = "test-azure-functions-0406"
   app_service_plan_id        = module.appservice_plan_function_app.app_service_plan_id
 }
 
@@ -106,6 +108,7 @@ module "appservice_plan_app_service" {
   location              = var.location
   app_service_plan_name = "myappserviceplan_appservicee"
 }
+
 
 module "app_service" {
   source              = "./modules/app_service"

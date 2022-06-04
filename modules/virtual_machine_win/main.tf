@@ -2,12 +2,12 @@
 resource "azurerm_network_security_group" "win_nsg" {
   name                = "network-security-group-${var.windows}"
   location            = var.location
-  resource_group_name = var.service_rg_name
+  resource_group_name = var.vnet_rg_name
 }
 
 resource "azurerm_subnet" "win_subnet" {
   name                 = "subnet-windows"
-  resource_group_name  = var.service_rg_name
+  resource_group_name  = var.vnet_rg_name
   virtual_network_name = var.vnet_name
   address_prefixes     = ["10.0.1.0/24"]
 }
