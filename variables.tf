@@ -21,3 +21,8 @@ variable "appservice_plan_name" {}
 variable "waf_policy_name" {}
 variable "app_gateway_name" {}
 variable "ag_public_ip_name" {}
+variable "privatelink_name" {}
+variable "mysql_server_name" {}
+variable "mysql_database_name" {}
+variable "mysql_admin_login" {}
+variable "mysql_admin_password" {}

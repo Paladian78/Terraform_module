@@ -1,12 +1,12 @@
 # Azure Provider source and version being used
-# terraform {
-#   required_providers {
-#     azurerm = {
-#       source  = "hashicorp/azurerm"
-#       version = "=3.0.0"
-#     }
-#   }
-# }
+terraform {
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "=3.0.0"
+    }
+  }
+}
 
 # Configure the Microsoft Azure Provider
 provider "azurerm" {
@@ -55,6 +55,7 @@ module "virtual_machine_linux" {
 module "virtual_machine_win" {
   source          = "./modules/virtual_machine_win"
   service_rg_name = azurerm_resource_group.rg_name.name
+  vnet_rg_name    = azurerm_resource_group.vnet_rg.name
   location        = azurerm_resource_group.rg_name.location
   vnet_name       = module.virtual_network.vnet_name
   subnet_id       = module.virtual_network.subnet_id
@@ -77,11 +78,16 @@ module "eventhub" {
 #--------------------------------------SQL instance--------------------------------------#
 
 module "sql" {
-  source          = "./modules/sql"
-  service_rg_name = azurerm_resource_group.rg_name.name
-  sec_grp         = module.virtual_machine_linux.sec_grp
-  sec_grp_id      = module.virtual_machine_linux.sec_grp_id
-  vnet_name       = module.virtual_network.vnet_name
+  source               = "./modules/sql"
+  service_rg_name      = azurerm_resource_group.rg_name.name
+  location             = var.location
+  mysql_server_name    = var.mysql_server_name
+  mysql_database_name  = var.mysql_database_name
+  mysql_admin_login    = var.mysql_admin_login
+  mysql_admin_password = var.mysql_admin_password
+  sec_grp              = module.virtual_machine_linux.sec_grp
+  sec_grp_id           = module.virtual_machine_linux.sec_grp_id
+  vnet_name            = module.virtual_network.vnet_name
 }
 
 #--------------------------------------storage account--------------------------------------#
@@ -180,4 +186,5 @@ module "private_link_service" {
   ag_public_ip_name = var.ag_public_ip_name
   location          = var.location
   ag_public_ip_id   = module.app_gateway.ag_public_ip_id
+  privatelink_name  = var.privatelink_name
 }
