@@ -14,7 +14,7 @@ resource "azurerm_public_ip" "main" {
   location             = var.location
   allocation_method    = "Static"
   sku                  = "Standard"
-  enforce_private_link_service_network_policies = true
+  # enforce_private_link_service_network_policies = true
 }
 output "ag_public_ip_id" {
   value = azurerm_public_ip.main.id
