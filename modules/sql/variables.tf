@@ -1,23 +1,12 @@
-variable "service_rg_name" {
-  description = "variable for resource group name"
-}
-
-variable "location" {
-  default     = "eastasia"
-  description = "Location for Resource Groups"
-}
-
-variable "sec_grp" {
-  description = "Security Group"
-}
-
-variable "sec_grp_id" {
-  description = "Security Group ID"
-}
-
-variable "vnet_name" {
-  description = "vnet name"
-}
+variable "service_rg_name" {}
+variable "location" {}
+variable "sec_grp" {}
+variable "sec_grp_id" {}
+variable "vnet_name" {}
+variable "mysql_admin_login" {}
+variable "mysql_admin_password" {}
+variable "mysql_server_name" {}
+variable "mysql_database_name" {}
 
 # Provide your azure active directories username and object id
 variable "username" {

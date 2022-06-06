@@ -1,13 +1,3 @@
-variable "vnet_name" {
-  default     = "vm-virtual-network"
-  description = "Vnet Name"
-}
-
-variable "service_rg_name" {
-  description = "variable for resource group name"
-}
-
-variable "location" {
-  default     = "eastasia"
-  description = "Location for Resource Groups"
-}
+variable "vnet_name" {}
+variable "service_rg_name" {}
+variable "location" {}

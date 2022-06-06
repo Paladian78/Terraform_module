@@ -19,4 +19,15 @@ variable "vnet_name" {
 variable "vnet_rg_name" {
   description = "value for resorce_group_name"
 }
-
+variable "subnet_id" {
+  
+}
+variable "windows_admin_username" {
+  
+}
+variable "windows_admin_password" {
+  
+}
+variable "windows_name" {
+  
+}

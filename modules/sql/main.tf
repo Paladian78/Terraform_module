@@ -170,12 +170,12 @@
 
 # Server
 resource "azurerm_mssql_server" "server" {
-  name                         = "mssqlserver0306"
+  name                         = var.mysql_server_name
   resource_group_name          = var.service_rg_name
   location                     = var.location
   version                      = "12.0"
-  administrator_login          = "missadministrator"
-  administrator_login_password = "thisIsKat11"
+  administrator_login          = var.mysql_admin_login
+  administrator_login_password = var.mysql_admin_password
   minimum_tls_version          = "1.2"
 
   azuread_administrator {
@@ -185,18 +185,8 @@ resource "azurerm_mssql_server" "server" {
 }
 
 
-# DB
-resource "azurerm_storage_account" "db_store" {
-  name                     = "storage0306"
-  resource_group_name      = var.service_rg_name
-  location                 = var.location
-  account_tier             = "Standard"
-  account_replication_type = "GRS"
-}
-
-
 resource "azurerm_mssql_database" "sql_db" {
-  name           = "mssql-db-0306"
+  name           = var.mysql_database_name
   server_id      = azurerm_mssql_server.server.id
   collation      = "SQL_Latin1_General_CP1_CI_AS"
   license_type   = "LicenseIncluded"

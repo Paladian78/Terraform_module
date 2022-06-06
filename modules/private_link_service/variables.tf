@@ -1,8 +1,5 @@
-variable "service_rg_name" {
-  description = "variable for resource group name"
-}
-
-variable "location" {
-  default     = "eastasia"
-  description = "Location for Resource Groups"
-}
+variable "service_rg_name" {}
+variable "location" {}
+variable "ag_public_ip_name" {}
+variable "ag_public_ip_id" {}
+variable "privatelink_name" {}

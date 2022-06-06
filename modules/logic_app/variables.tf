@@ -1,18 +1,6 @@
-variable "resource_group_name" {
-}
-
-variable "location" {
-}
-
-variable "app_service_plan_name" {
-  default     = "azure-functions-test-service-plan"
-  description = "value for app_service_plan_name"
-}
-
-variable "storage_account_name" {
-  description = "value for storage_account_name"
-}
-
-variable "storage_account_access_key" {
-  description = "value for storage_account_access_key"
-}
+variable "resource_group_name" {}
+variable "location" {}
+variable "logic_app_service_plan_name" {}
+variable "storage_account_name" {}
+variable "storage_account_access_key" {}
+variable "logic_app_name" {}

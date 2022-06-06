@@ -1,36 +1,27 @@
-provider "azurerm" {
-  features {}
-}
-
 # Linux Virtual Machine
 resource "azurerm_network_security_group" "linux_nsg" {
-  name                = "network-security-group-${var.linux}"
+  name                = "linux-nsg-${var.linux}"
   location            = var.location
   resource_group_name = var.vnet_rg_name
 }
 
-resource "azurerm_subnet" "linux_subnet" {
-  name                 = "subnet-linux"
-  resource_group_name  = var.vnet_rg_name
-  virtual_network_name = var.vnet_name
-  address_prefixes     = ["10.0.2.0/24"]
-}
+
 
 resource "azurerm_public_ip" "linux_pi" {
-  name                = "public-ip-${var.linux}"
+  name                = "linux-publicIP-${var.linux}"
   resource_group_name = var.service_rg_name
   location            = var.location
   allocation_method   = "Static"
 }
 
 resource "azurerm_network_interface" "linux_nic" {
-  name                = "nic-${var.linux}"
+  name                = "linux-nic-${var.linux}"
   location            = var.location
   resource_group_name = var.service_rg_name
 
   ip_configuration {
     name                          = "internal"
-    subnet_id                     = azurerm_subnet.linux_subnet.id
+    subnet_id                     = var.subnet_id
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.linux_pi.id
   }
@@ -59,8 +50,8 @@ resource "azurerm_virtual_machine" "linux_vm" {
 
   os_profile {
     computer_name  = var.linux
-    admin_username = "testadmin"
-    admin_password = "Password1234!"
+    admin_username = var.linux_admin_username
+    admin_password = var.linux_admin_password
   }
 
   os_profile_linux_config {
@@ -85,7 +76,7 @@ resource "azurerm_virtual_machine_data_disk_attachment" "linux_dd_attach" {
 }
 
 resource "azurerm_subnet_network_security_group_association" "linux_subnet_nsg" {
-  subnet_id                 = azurerm_subnet.linux_subnet.id
+  subnet_id                 = var.subnet_id
   network_security_group_id = azurerm_network_security_group.linux_nsg.id
 }
 

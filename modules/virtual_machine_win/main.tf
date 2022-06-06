@@ -5,12 +5,7 @@ resource "azurerm_network_security_group" "win_nsg" {
   resource_group_name = var.vnet_rg_name
 }
 
-resource "azurerm_subnet" "win_subnet" {
-  name                 = "subnet-windows"
-  resource_group_name  = var.vnet_rg_name
-  virtual_network_name = var.vnet_name
-  address_prefixes     = ["10.0.1.0/24"]
-}
+
 
 resource "azurerm_public_ip" "win_pi" {
   name                = "public-ip-${var.windows}"
@@ -26,18 +21,18 @@ resource "azurerm_network_interface" "win_nic" {
 
   ip_configuration {
     name                          = "internal"
-    subnet_id                     = azurerm_subnet.win_subnet.id
+    subnet_id                     = var.subnet_id
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.win_pi.id
   }
 }
 
 resource "azurerm_windows_virtual_machine" "win_vm" {
-  name                = var.windows
+  name                = var.windows_name
   resource_group_name = var.service_rg_name
   location            = var.location
-  admin_username      = "adminuser"
-  admin_password      = "P@$$w0rd1234!"
+  admin_username      = var.windows_admin_username
+  admin_password      = var.windows_admin_password
   size                = "Standard_F2"
 
   network_interface_ids = [
@@ -76,6 +71,6 @@ resource "azurerm_virtual_machine_data_disk_attachment" "win_dd_attach" {
 }
 
 resource "azurerm_subnet_network_security_group_association" "win_subnet_nsg" {
-  subnet_id                 = azurerm_subnet.win_subnet.id
+  subnet_id                 = var.subnet_id
   network_security_group_id = azurerm_network_security_group.win_nsg.id
 }

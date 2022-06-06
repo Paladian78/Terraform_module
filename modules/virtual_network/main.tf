@@ -9,3 +9,26 @@ resource "azurerm_virtual_network" "vm_vnet" {
 output "vnet_name" {
   value = azurerm_virtual_network.vm_vnet.name
 }
+
+resource "azurerm_subnet" "vm_subnet" {
+  name                 = "frontend"
+  resource_group_name  = var.vnet_name
+  virtual_network_name = azurerm_virtual_network.vm_vnet.name
+  address_prefixes     = ["10.0.1.0/24"]
+}
+
+resource "azurerm_subnet" "backend" {
+  name                 = "frontend"
+  resource_group_name  = var.vnet_name
+  virtual_network_name = azurerm_virtual_network.vm_vnet.name
+  address_prefixes     = ["10.0.2.0/24"]
+}
+
+
+
+output "vm_subnet_id" {
+  value = azurerm_subnet.vm_subnet.id
+}
+output "backend_subnet_id" {
+  value = azurerm_subnet.backend.id
+}

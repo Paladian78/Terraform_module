@@ -10,3 +10,12 @@ variable "app_gateway_name" {
 variable "waf_policy_id" {
   
 }
+variable "vnet_name" {
+  
+}
+variable "service_rg_name" {
+  
+}
+variable "ag_public_ip_name" {
+  
+}

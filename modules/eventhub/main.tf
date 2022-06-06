@@ -1,17 +1,17 @@
 resource "azurerm_eventhub_namespace" "eventhub_namespace" {
-  name                = "eventhub-namespace-test"
+  name                = var.namespace_name
   location            = var.location
   resource_group_name = var.service_rg_name
   sku                 = "Standard"
   capacity            = 1
 
-  tags = {
-    environment = "Production"
-  }
+  # tags = {
+  #   environment = "Production"
+  # }
 }
 
 resource "azurerm_eventhub" "eventhub" {
-  name                = "eventhub-test"
+  name                = var.eventhub_name
   namespace_name      = azurerm_eventhub_namespace.eventhub_namespace.name
   resource_group_name = var.service_rg_name
   partition_count     = 2

@@ -1,25 +1,3 @@
-resource "azurerm_virtual_network" "pls_vnet" {
-  name                = "pls-network"
-  resource_group_name = var.service_rg_name
-  location            = var.location
-  address_space       = ["10.5.0.0/16"]
-}
-
-resource "azurerm_subnet" "pls_subnet" {
-  name                                          = "pls-subnet"
-  resource_group_name                           = var.service_rg_name
-  virtual_network_name                          = azurerm_virtual_network.pls_vnet.name
-  address_prefixes                              = ["10.5.1.0/24"]
-  enforce_private_link_service_network_policies = true
-}
-
-resource "azurerm_public_ip" "pls_public_ip" {
-  name                = "pls-api"
-  sku                 = "Standard"
-  location            = var.location
-  resource_group_name = var.service_rg_name
-  allocation_method   = "Static"
-}
 
 resource "azurerm_lb" "pls_lb" {
   name                = "pls-lb"
@@ -28,13 +6,13 @@ resource "azurerm_lb" "pls_lb" {
   resource_group_name = var.service_rg_name
 
   frontend_ip_configuration {
-    name                 = azurerm_public_ip.pls_public_ip.name
-    public_ip_address_id = azurerm_public_ip.pls_public_ip.id
+    name                 = var.ag_public_ip_name
+    public_ip_address_id = var.ag_public_ip_id
   }
 }
 
 resource "azurerm_private_link_service" "pls_private_link" {
-  name                = "pls-privatelink"
+  name                = var.privatelink_name
   resource_group_name = var.service_rg_name
   location            = var.location
 
@@ -46,7 +24,7 @@ resource "azurerm_private_link_service" "pls_private_link" {
     name                       = "primary"
     private_ip_address         = "10.5.1.17"
     private_ip_address_version = "IPv4"
-    subnet_id                  = azurerm_subnet.pls_subnet.id
+    subnet_id                  = var.ag_public_ip_id
     primary                    = true
   }
 
@@ -54,7 +32,7 @@ resource "azurerm_private_link_service" "pls_private_link" {
     name                       = "secondary"
     private_ip_address         = "10.5.1.18"
     private_ip_address_version = "IPv4"
-    subnet_id                  = azurerm_subnet.pls_subnet.id
+    subnet_id                  = var.ag_public_ip_id
     primary                    = false
   }
 }

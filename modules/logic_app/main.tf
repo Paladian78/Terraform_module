@@ -1,6 +1,6 @@
 
 resource "azurerm_app_service_plan" "main" {
-  name                = "logic-app-plan"
+  name                = var.logic_app_service_plan_name
   location            = var.location
   resource_group_name = var.resource_group_name
 
@@ -11,7 +11,7 @@ resource "azurerm_app_service_plan" "main" {
 }
 
 resource "azurerm_logic_app_standard" "main" {
-  name                       = "test-azure-functions0406"
+  name                       = var.logic_app_name
   location                   = var.location
   resource_group_name        = var.resource_group_name
   app_service_plan_id        = azurerm_app_service_plan.main.id

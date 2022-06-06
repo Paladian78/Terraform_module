@@ -1,47 +1,34 @@
-provider "azurerm" {
-  features {}
+
+
+resource "azurerm_subnet" "app_gateway_subnet" {
+  name                 = "app_gateway_subnet"
+  resource_group_name  = var.service_rg_name
+  virtual_network_name = var.vnet_name
+  address_prefixes     = ["10.0.3.0/24"]
 }
 
-
-
-resource "azurerm_virtual_network" "main" {
-  name                = "main-networkaa"
-  resource_group_name = var.resource_group_name
-  location            = var.location
-  address_space       = ["10.254.0.0/16"]
-}
-
-resource "azurerm_subnet" "frontend" {
-  name                 = "frontend"
-  resource_group_name  = var.resource_group_name
-  virtual_network_name = azurerm_virtual_network.main.name
-  address_prefixes     = ["10.254.0.0/24"]
-}
-
-resource "azurerm_subnet" "backend" {
-  name                 = "backend"
-  resource_group_name  = var.resource_group_name
-  virtual_network_name = azurerm_virtual_network.main.name
-  address_prefixes     = ["10.254.2.0/24"]
-}
 
 resource "azurerm_public_ip" "main" {
-  name                = "main-public_ip"
-  resource_group_name = var.resource_group_name
-  location            = var.location
-  allocation_method   = "Static"
-  sku                 = "Standard"
+  name                 = var.ag_public_ip_name
+  resource_group_name  = var.resource_group_name
+  location             = var.location
+  allocation_method    = "Static"
+  sku                  = "Standard"
+  enforce_private_link_service_network_policies = true
+}
+output "ag_public_ip_id" {
+  value = azurerm_public_ip.main.id
 }
 
 #&nbsp;since these variables are re-used - a locals block makes this more maintainable
 locals {
-  backend_address_pool_name      = "${azurerm_virtual_network.main.name}-beap"
-  frontend_port_name             = "${azurerm_virtual_network.main.name}-feport"
-  frontend_ip_configuration_name = "${azurerm_virtual_network.main.name}-feip"
-  http_setting_name              = "${azurerm_virtual_network.main.name}-be-htst"
-  listener_name                  = "${azurerm_virtual_network.main.name}-httplstn"
-  request_routing_rule_name      = "${azurerm_virtual_network.main.name}-rqrt"
-  redirect_configuration_name    = "${azurerm_virtual_network.main.name}-rdrcfg"
+  backend_address_pool_name      = "${var.vnet_name}-beap"
+  frontend_port_name             = "${var.vnet_name}-feport"
+  frontend_ip_configuration_name = "${var.vnet_name}-feip"
+  http_setting_name              = "${var.vnet_name}-be-htst"
+  listener_name                  = "${var.vnet_name}-httplstn"
+  request_routing_rule_name      = "${var.vnet_name}-rqrt"
+  redirect_configuration_name    = "${var.vnet_name}-rdrcfg"
 }
 
 resource "azurerm_application_gateway" "network" {
@@ -57,7 +44,7 @@ resource "azurerm_application_gateway" "network" {
 
   gateway_ip_configuration {
     name      = "my-gateway-ip-configuration"
-    subnet_id = azurerm_subnet.frontend.id
+    subnet_id = azurerm_subnet.app_gateway_subnet.id
   }
 
   frontend_port {

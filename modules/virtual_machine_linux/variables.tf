@@ -1,22 +1,8 @@
-variable "service_rg_name" {
-  description = "variable for resource group name"
-}
-
-variable "location" {
-  default     = "eastasia"
-  description = "Location for Resource Groups"
-}
-
-variable "linux" {
-  default     = "linux-vm-0306"
-  description = "VM name"
-}
-
-variable "vnet_name" {
-  description = "vnet name"
-}
-
-variable "vnet_rg_name" {
-  description = "value for resorce_group_name"
-}
-
+variable "service_rg_name" {}
+variable "location" {}
+variable "linux" {}
+variable "vnet_name" {}
+variable "vnet_rg_name" {}
+variable "subnet_id" {}
+variable "linux_admin_username" {}
+variable "linux_admin_password" {}

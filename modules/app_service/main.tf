@@ -3,7 +3,7 @@ provider "azurerm" {
 }
 
 resource "azurerm_app_service" "main" {
-  name                = var.function_app_name
+  name                = var.app_name
   location            = var.location
   resource_group_name = var.resource_group_name
   app_service_plan_id = var.app_service_plan_id
