@@ -14,7 +14,7 @@ resource "azurerm_subnet" "vm_subnet" {
   name                 = "frontend"
   resource_group_name  = var.service_rg_name
   virtual_network_name = azurerm_virtual_network.vm_vnet.name
-  address_prefix       = var.subnet_frontend_address
+  address_prefixes       = var.subnet_frontend_address
   enforce_private_link_service_network_policies = true
 }
 
@@ -22,7 +22,7 @@ resource "azurerm_subnet" "backend" {
   name                 = "backend"
   resource_group_name  = var.service_rg_name
   virtual_network_name = azurerm_virtual_network.vm_vnet.name
-  address_prefix       = var.subnet_backend_address
+  address_prefixes       = var.subnet_backend_address
 }
 
 

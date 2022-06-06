@@ -31,15 +31,17 @@ variable "mysql_database_name" {}
 variable "mysql_admin_login" {}
 variable "mysql_admin_password" {}
 variable "virtual_network_address" {
-    type = "list"
+    type = list(string)
 }
 variable "subnet_frontend_address" {
-    type = "list"
+    type = list(string)
 }
 variable "subnet_backend_address" {
-    type = "list"
+    type = list(string)
 }
 variable "appg_subnet" {
-    type = "list"
+    type = list(string)
 }
+variable "privateip1" {}
+variable "privateip2" {}
   

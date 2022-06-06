@@ -4,8 +4,7 @@ resource "azurerm_subnet" "app_gateway_subnet" {
   name                 = "app_gateway_subnet"
   resource_group_name  = var.service_rg_name
   virtual_network_name = var.vnet_name
-  address_prefix       = var.appg_subnet
-  address_prefixes     = ["10.0.3.0/24"]
+  address_prefixes       = var.appg_subnet
   # enforce_private_link_service_network_policies = true
 }
 output "ag_subnet_id" {

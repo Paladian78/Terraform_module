@@ -30,7 +30,7 @@ resource "azurerm_private_link_service" "pls_private_link" {
 
   nat_ip_configuration {
     name                       = "primary"
-    private_ip_address         = "10.0.1.17"
+    private_ip_address         = var.privateip1
     private_ip_address_version = "IPv4"
     subnet_id                  = var.ag_subnet_id
     primary                    = true
@@ -38,7 +38,7 @@ resource "azurerm_private_link_service" "pls_private_link" {
 
   nat_ip_configuration {
     name                       = "secondary"
-    private_ip_address         = "10.0.1.18"
+    private_ip_address         = var.privateip2
     private_ip_address_version = "IPv4"
     subnet_id                  = var.ag_subnet_id
     primary                    = false

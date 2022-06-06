@@ -20,5 +20,5 @@ variable "ag_public_ip_name" {
   
 }
 variable "appg_subnet" {
-  type = "list"
+  type = list(string)
 }

@@ -184,7 +184,7 @@ module "app_gateway" {
   vnet_name           = module.virtual_network.vnet_name
   service_rg_name     = azurerm_resource_group.vnet_rg.name
   ag_public_ip_name   = var.ag_public_ip_name
-  ag_subnet_name      = var.ag_subnet_name
+  appg_subnet         = var.appg_subnet
 }
 
 #--------------------------------------private link service--------------------------------------#
@@ -197,4 +197,6 @@ module "private_link_service" {
   ag_public_ip_id   = module.app_gateway.ag_public_ip_id
   ag_subnet_id      = module.virtual_network.vm_subnet_id
   privatelink_name  = var.privatelink_name
+  privateip1        = var.privateip1
+  privateip2        = var.privateip2
 }
