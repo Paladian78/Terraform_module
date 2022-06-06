@@ -75,11 +75,6 @@ resource "azurerm_virtual_machine_data_disk_attachment" "linux_dd_attach" {
   caching            = "ReadWrite"
 }
 
-resource "azurerm_subnet_network_security_group_association" "linux_subnet_nsg" {
-  subnet_id                 = var.subnet_id
-  network_security_group_id = azurerm_network_security_group.linux_nsg.id
-}
-
 
 output "sec_grp" {
   value = azurerm_network_security_group.linux_nsg.name

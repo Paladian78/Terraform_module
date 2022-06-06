@@ -1,12 +1,12 @@
 # Azure Provider source and version being used
-# terraform {
-#   required_providers {
-#     azurerm = {
-#       source  = "hashicorp/azurerm"
-#       version = "=3.0.0"
-#     }
-#   }
-# }
+terraform {
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "=3.0.0"
+    }
+  }
+}
 
 # Configure the Microsoft Azure Provider
 provider "azurerm" {
@@ -128,6 +128,8 @@ module "appservice_plan_function_app" {
   resource_group_name   = azurerm_resource_group.rg_name.name
   location              = var.location
   app_service_plan_name = var.functionapp_plan_name
+  appservice_tier       = var.fnappservice_tier
+  appservice_size       = var.fnappservice_size
 }
 
 module "function_app" {
@@ -147,6 +149,8 @@ module "appservice_plan_app_service" {
   resource_group_name   = azurerm_resource_group.rg_name.name
   location              = var.location
   app_service_plan_name = var.appservice_plan_name
+  appservice_tier       = var.apappservice_tier
+  appservice_size       = var.apappservice_size
 }
 
 module "app_service" {
@@ -187,5 +191,6 @@ module "private_link_service" {
   ag_public_ip_name = var.ag_public_ip_name
   location          = var.location
   ag_public_ip_id   = module.app_gateway.ag_public_ip_id
+  ag_subnet_id      = module.virtual_network.vm_subnet_id
   privatelink_name  = var.privatelink_name
 }

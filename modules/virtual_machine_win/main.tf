@@ -70,7 +70,4 @@ resource "azurerm_virtual_machine_data_disk_attachment" "win_dd_attach" {
   caching            = "ReadWrite"
 }
 
-resource "azurerm_subnet_network_security_group_association" "win_subnet_nsg" {
-  subnet_id                 = var.subnet_id
-  network_security_group_id = azurerm_network_security_group.win_nsg.id
-}
+

@@ -1,3 +1,11 @@
+resource "azurerm_public_ip" "main" {
+  name                = "plsip-public"
+  sku                 = "Standard"
+  location            = var.location
+  resource_group_name = var.service_rg_name
+  allocation_method   = "Static"
+  # enforce_private_link_endpoint_network_policies = true
+}
 
 resource "azurerm_lb" "pls_lb" {
   name                = "pls-lb"
@@ -6,8 +14,8 @@ resource "azurerm_lb" "pls_lb" {
   resource_group_name = var.service_rg_name
 
   frontend_ip_configuration {
-    name                 = var.ag_public_ip_name
-    public_ip_address_id = var.ag_public_ip_id
+    name                 = azurerm_public_ip.main.name
+    public_ip_address_id = azurerm_public_ip.main.id
   }
 }
 
@@ -22,17 +30,17 @@ resource "azurerm_private_link_service" "pls_private_link" {
 
   nat_ip_configuration {
     name                       = "primary"
-    private_ip_address         = "10.5.1.17"
+    private_ip_address         = "10.0.1.17"
     private_ip_address_version = "IPv4"
-    subnet_id                  = var.ag_public_ip_id
+    subnet_id                  = var.ag_subnet_id
     primary                    = true
   }
 
   nat_ip_configuration {
     name                       = "secondary"
-    private_ip_address         = "10.5.1.18"
+    private_ip_address         = "10.0.1.18"
     private_ip_address_version = "IPv4"
-    subnet_id                  = var.ag_public_ip_id
+    subnet_id                  = var.ag_subnet_id
     primary                    = false
   }
 }

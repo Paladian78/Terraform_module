@@ -5,7 +5,12 @@ resource "azurerm_subnet" "app_gateway_subnet" {
   resource_group_name  = var.service_rg_name
   virtual_network_name = var.vnet_name
   address_prefixes     = ["10.0.3.0/24"]
+  # enforce_private_link_service_network_policies = true
 }
+output "ag_subnet_id" {
+  value = azurerm_subnet.app_gateway_subnet.id
+}
+  
 
 
 resource "azurerm_public_ip" "main" {

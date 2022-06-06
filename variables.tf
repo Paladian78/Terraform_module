@@ -14,8 +14,12 @@ variable "namespace_name" {}
 variable "eventhub_name" {}
 variable "logic_app_name" {}
 variable "logic_app_service_plan_name" {}
+variable "apappservice_tier" {}
+variable "apappservice_size" {}
 variable "function_app_name" {}
 variable "functionapp_plan_name" {}
+variable "fnappservice_tier" {}
+variable "fnappservice_size" {}
 variable "appservice_name" {}
 variable "appservice_plan_name" {}
 variable "waf_policy_name" {}
