@@ -42,6 +42,7 @@ module "virtual_network" {
 module "virtual_machine_linux" {
   source               = "./modules/virtual_machine_linux"
   service_rg_name      = azurerm_resource_group.rg_name.name
+  vnet_rg_name         = azurerm_resource_group.vnet_rg.name
   location             = azurerm_resource_group.rg_name.location
   vnet_name            = module.virtual_network.vnet_name
   subnet_id            = module.virtual_network.subnet_id
