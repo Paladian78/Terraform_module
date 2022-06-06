@@ -26,7 +26,16 @@ mysql_server_name = "mymysqlm"
 mysql_database_name = "mydbslq"
 mysql_admin_login  = "mydbuser"
 mysql_admin_password  = "Passw0rd!1234"
+
+###function app###
 fnappservice_size = "S1"
 fnappservice_tier = "Standard"
+###app service###
 apappservice_size = "S1"
 apappservice_tier = "Standard"
+###virtual network###
+virtual_network_address = ["10.0.0.0/16"]
+subnet_frontend_address = ["10.0.1.0/24"]
+subnet_backend_address = ["10.0.2.0/24"]
+appg_subnet = ["10.0.3.0/24"]
+

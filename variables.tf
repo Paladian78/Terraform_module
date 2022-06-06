@@ -30,3 +30,16 @@ variable "mysql_server_name" {}
 variable "mysql_database_name" {}
 variable "mysql_admin_login" {}
 variable "mysql_admin_password" {}
+variable "virtual_network_address" {
+    type = "list"
+}
+variable "subnet_frontend_address" {
+    type = "list"
+}
+variable "subnet_backend_address" {
+    type = "list"
+}
+variable "appg_subnet" {
+    type = "list"
+}
+  

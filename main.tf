@@ -35,6 +35,9 @@ module "virtual_network" {
   service_rg_name = azurerm_resource_group.vnet_rg.name
   vnet_name       = var.vnet_name
   location        = var.location
+  virtual_network_address = var.virtual_network_address
+  subnet_frontend_address = var.subnet_frontend_address
+  subnet_backend_address = var.subnet_backend_address
 }
 
 #--------------------------------------linux virtual machine--------------------------------------#
@@ -181,6 +184,7 @@ module "app_gateway" {
   vnet_name           = module.virtual_network.vnet_name
   service_rg_name     = azurerm_resource_group.vnet_rg.name
   ag_public_ip_name   = var.ag_public_ip_name
+  ag_subnet_name      = var.ag_subnet_name
 }
 
 #--------------------------------------private link service--------------------------------------#
