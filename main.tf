@@ -45,7 +45,7 @@ module "virtual_machine_linux" {
   vnet_rg_name         = azurerm_resource_group.vnet_rg.name
   location             = azurerm_resource_group.rg_name.location
   vnet_name            = module.virtual_network.vnet_name
-  subnet_id            = module.virtual_network.subnet_id
+  subnet_id            = module.virtual_network.vm_subnet_id
   linux                = var.linux
   linux_admin_username = var.linux_admin_username
   linux_admin_password = var.linux_admin_password
@@ -59,7 +59,7 @@ module "virtual_machine_win" {
   vnet_rg_name    = azurerm_resource_group.vnet_rg.name
   location        = azurerm_resource_group.rg_name.location
   vnet_name       = module.virtual_network.vnet_name
-  subnet_id       = module.virtual_network.subnet_id
+  subnet_id       = module.virtual_network.vm_subnet_id
   windows         = var.windows
   windows_name    = var.windows_name
   windows_admin_username = var.windows_admin_username
