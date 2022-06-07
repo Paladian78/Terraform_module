@@ -1,4 +1,4 @@
-resource "azurerm_web_application_firewall_policy" "main" {
+resource "azurerm_web_application_firewall_policy" "waf_policy" {
   name                = var.waf_policy_name
   resource_group_name = var.service_rg_name
   location            = var.location
@@ -55,7 +55,7 @@ resource "azurerm_web_application_firewall_policy" "main" {
     mode                        = "Prevention"
     request_body_check          = true
     file_upload_limit_in_mb     = 100
-    # main = 128
+    # waf_policy = 128
   }
 
   managed_rules {
@@ -85,6 +85,6 @@ resource "azurerm_web_application_firewall_policy" "main" {
 
 }
 output "waf_policy_id" {
-  value = azurerm_web_application_firewall_policy.main.id
+  value = azurerm_web_application_firewall_policy.waf_policy.id
 }
 

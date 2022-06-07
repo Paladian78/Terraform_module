@@ -1,8 +1,4 @@
-provider "azurerm" {
-  features {}
-}
-
-resource "azurerm_storage_account" "main" {
+resource "azurerm_storage_account" "strg" {
   name                     = var.storage_account_name
   resource_group_name      = var.service_rg_name
   location                 = var.location
@@ -10,5 +6,5 @@ resource "azurerm_storage_account" "main" {
   account_replication_type = "LRS"
 }
 output "strg_key" {
-  value = azurerm_storage_account.main.primary_access_key
+  value = azurerm_storage_account.strg.primary_access_key
 }
