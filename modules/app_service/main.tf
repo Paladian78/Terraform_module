@@ -2,20 +2,12 @@ provider "azurerm" {
   features {}
 }
 
-resource "azurerm_app_service" "main" {
+resource "azurerm_linux_web_app" "webapp" {
   name                = var.app_name
   location            = var.location
-  resource_group_name = var.resource_group_name
+  resource_group_name = var.service_rg_name
   app_service_plan_id = var.app_service_plan_id
 
-  site_config {
-    dotnet_framework_version = "v4.0"
-    scm_type                 = "LocalGit"
+  site_config {}
   }
 
-  #   connection_string {
-  #     name  = "Database"
-  #     type  = "SQLServer"
-  #     value = "Server=some-server.mydomain.com;Integrated Security=SSPI"
-  #   }
-}

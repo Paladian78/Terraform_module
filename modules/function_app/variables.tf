@@ -1,4 +1,4 @@
-variable "resource_group_name" {
+variable "service_rg_name" {
 
 }
 variable "location" {

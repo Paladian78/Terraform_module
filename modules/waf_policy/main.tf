@@ -1,6 +1,6 @@
 resource "azurerm_web_application_firewall_policy" "main" {
   name                = var.waf_policy_name
-  resource_group_name = var.resource_group_name
+  resource_group_name = var.service_rg_name
   location            = var.location
 
   custom_rules {

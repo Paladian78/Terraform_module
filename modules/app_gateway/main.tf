@@ -1,25 +1,9 @@
-
-
-resource "azurerm_subnet" "app_gateway_subnet" {
-  name                 = "app_gateway_subnet"
-  resource_group_name  = var.service_rg_name
-  virtual_network_name = var.vnet_name
-  address_prefixes       = var.appg_subnet
-  # enforce_private_link_service_network_policies = true
-}
-output "ag_subnet_id" {
-  value = azurerm_subnet.app_gateway_subnet.id
-}
-  
-
-
-resource "azurerm_public_ip" "main" {
+resource "azurerm_public_ip" "publicIP" {
   name                 = var.ag_public_ip_name
-  resource_group_name  = var.resource_group_name
+  resource_group_name  = var.service_rg_name
   location             = var.location
   allocation_method    = "Static"
   sku                  = "Standard"
-  # enforce_private_link_service_network_policies = true
 }
 output "ag_public_ip_id" {
   value = azurerm_public_ip.main.id
@@ -38,7 +22,7 @@ locals {
 
 resource "azurerm_application_gateway" "network" {
   name                = var.app_gateway_name
-  resource_group_name = var.resource_group_name
+  resource_group_name = var.service_rg_name
   location            = var.location
 
   sku {
@@ -49,7 +33,7 @@ resource "azurerm_application_gateway" "network" {
 
   gateway_ip_configuration {
     name      = "my-gateway-ip-configuration"
-    subnet_id = azurerm_subnet.app_gateway_subnet.id
+    subnet_id = var.ag_subnet_id
   }
 
   frontend_port {
@@ -88,13 +72,9 @@ resource "azurerm_application_gateway" "network" {
     http_listener_name         = local.listener_name
     backend_address_pool_name  = local.backend_address_pool_name
     backend_http_settings_name = local.http_setting_name
-    priority = 2
+    priority                   = 2
   }
 }
 
 
-# resource "azurerm_web_application_firewall_policy_application_gateway_association" "main" {
-#   association_type        = "ApplicationGateway"
-#   waf_policy_id           = var.waf_policy_id
-#   application_gateway_id  = azurerm_application_gateway.main.id
-# }
+

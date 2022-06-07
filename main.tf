@@ -38,6 +38,7 @@ module "virtual_network" {
   virtual_network_address = var.virtual_network_address
   subnet_frontend_address = var.subnet_frontend_address
   subnet_backend_address = var.subnet_backend_address
+  appg_subnet         = var.appg_subnet
 }
 
 #--------------------------------------linux virtual machine--------------------------------------#
@@ -57,14 +58,14 @@ module "virtual_machine_linux" {
 #--------------------------------------windows virtual machine--------------------------------------#
 
 module "virtual_machine_win" {
-  source          = "./modules/virtual_machine_win"
-  service_rg_name = azurerm_resource_group.rg_name.name
-  vnet_rg_name    = azurerm_resource_group.vnet_rg.name
-  location        = azurerm_resource_group.rg_name.location
-  vnet_name       = module.virtual_network.vnet_name
-  subnet_id       = module.virtual_network.vm_subnet_id
-  windows         = var.windows
-  windows_name    = var.windows_name
+  source                 = "./modules/virtual_machine_win"
+  service_rg_name        = azurerm_resource_group.rg_name.name
+  vnet_rg_name           = azurerm_resource_group.vnet_rg.name
+  location               = azurerm_resource_group.rg_name.location
+  vnet_name              = module.virtual_network.vnet_name
+  subnet_id              = module.virtual_network.vm_subnet_id
+  windows                = var.windows
+  windows_name           = var.windows_name
   windows_admin_username = var.windows_admin_username
   windows_admin_password = var.windows_admin_password
 }
@@ -94,11 +95,20 @@ module "sql" {
   vnet_name            = module.virtual_network.vnet_name
 }
 
+module "sql_instance" {
+  source                    = "./modules/sql_instance"
+  service_rg_name           = azurerm_resource_group.rg_name.name
+  location                  = var.location
+  sql_managed_instance_name = var.sql_managed_instance_name
+  subnet_id                 = module.virtual_network.backend_subnet_id
+}
+  
+
 #--------------------------------------storage account--------------------------------------#
 
 module "storage_account" {
   source               = "./modules/storage_account"
-  resource_group_name  = azurerm_resource_group.rg_name.name
+  service_rg_name      = azurerm_resource_group.rg_name.name
   location             = var.location
   storage_account_name = var.storage_account_name
 }
@@ -106,69 +116,61 @@ module "storage_account" {
 #--------------------------------------logic app--------------------------------------#
 
 module "logic_app" {
-  source                     = "./modules/logic_app"
-  resource_group_name        = azurerm_resource_group.rg_name.name
-  location                   = var.location
-  storage_account_name       = var.storage_account_name
-  storage_account_access_key = module.storage_account.strg_key
-  logic_app_name             = var.logic_app_name
+  source                      = "./modules/logic_app"
+  service_rg_name             = azurerm_resource_group.rg_name.name
+  location                    = var.location
+  storage_account_name        = var.storage_account_name
+  storage_account_access_key  = module.storage_account.strg_key
+  logic_app_name              = var.logic_app_name
   logic_app_service_plan_name = var.logic_app_service_plan_name
 }
 
 #--------------------------------------key vault--------------------------------------#
 
-# module "key_vault" {
-#   source              = "./modules/key_vault"
-#   resource_group_name = azurerm_resource_group.rg_name.name
-#   location            = var.location
-#   key_vault_name      = "test-key-vault-0406"
-# }
+module "key_vault" {
+  source              = "./modules/key_vault"
+  service_rg_name = azurerm_resource_group.rg_name.name
+  location            = var.location
+  key_vault_name      = "test-key-vault-0406"
+}
 
 #--------------------------------------function app--------------------------------------#
 
-module "appservice_plan_function_app" {
+module "appservice_plan" {
   source                = "./modules/appservice_plan"
-  resource_group_name   = azurerm_resource_group.rg_name.name
+  service_rg_name   = azurerm_resource_group.rg_name.name
   location              = var.location
   app_service_plan_name = var.functionapp_plan_name
-  appservice_tier       = var.fnappservice_tier
-  appservice_size       = var.fnappservice_size
-}
-
-module "function_app" {
-  source = "./modules/function_app"
-  resource_group_name        = azurerm_resource_group.rg_name.name
-  location                   = var.location
-  storage_account_name       = var.storage_account_name
-  storage_account_access_key = module.storage_account.strg_key
-  function_app_name          = var.function_app_name
-  app_service_plan_id        = module.appservice_plan_function_app.app_service_plan_id
-}
-
-#--------------------------------------app service--------------------------------------#
-
-module "appservice_plan_app_service" {
-  source                = "./modules/appservice_plan"
-  resource_group_name   = azurerm_resource_group.rg_name.name
-  location              = var.location
-  app_service_plan_name = var.appservice_plan_name
   appservice_tier       = var.apappservice_tier
   appservice_size       = var.apappservice_size
 }
 
+module "function_app" {
+  source = "./modules/function_app"
+  service_rg_name        = azurerm_resource_group.rg_name.name
+  location                   = var.location
+  storage_account_name       = var.storage_account_name
+  storage_account_access_key = module.storage_account.strg_key
+  function_app_name          = var.function_app_name
+  app_service_plan_id        = module.appservice_plan.app_service_plan_id
+}
+
+#--------------------------------------app service--------------------------------------#
+
+
 module "app_service" {
   source              = "./modules/app_service"
-  resource_group_name = azurerm_resource_group.rg_name.name
+  service_rg_name = azurerm_resource_group.rg_name.name
   location            = var.location
   app_name            = var.appservice_name
-  app_service_plan_id = module.appservice_plan_app_service.app_service_plan_id
+  app_service_plan_id = module.appservice_plan.app_service_plan_id
 }
 
 #--------------------------------------waf policy--------------------------------------#
 
 module "waf_policy" {
   source              = "./modules/waf_policy"
-  resource_group_name = azurerm_resource_group.rg_name.name
+  service_rg_name = azurerm_resource_group.rg_name.name
   location            = var.location
   waf_policy_name     = var.waf_policy_name
 }
@@ -177,14 +179,12 @@ module "waf_policy" {
 
 module "app_gateway" {
   source              = "./modules/app_gateway"
-  resource_group_name = azurerm_resource_group.rg_name.name
+  service_rg_name = azurerm_resource_group.rg_name.name
   location            = var.location
   app_gateway_name    = var.app_gateway_name
   waf_policy_id       = module.waf_policy.waf_policy_id
-  vnet_name           = module.virtual_network.vnet_name
-  service_rg_name     = azurerm_resource_group.vnet_rg.name
   ag_public_ip_name   = var.ag_public_ip_name
-  appg_subnet         = var.appg_subnet
+  ag_subnet_id        = module.virtual_network.ag_subnet_id
 }
 
 #--------------------------------------private link service--------------------------------------#
@@ -195,7 +195,7 @@ module "private_link_service" {
   ag_public_ip_name = var.ag_public_ip_name
   location          = var.location
   ag_public_ip_id   = module.app_gateway.ag_public_ip_id
-  ag_subnet_id      = module.virtual_network.vm_subnet_id
+  ag_subnet_id      = module.virtual_network.backend_subnet_id
   privatelink_name  = var.privatelink_name
   privateip1        = var.privateip1
   privateip2        = var.privateip2

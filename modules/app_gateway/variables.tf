@@ -19,6 +19,6 @@ variable "service_rg_name" {
 variable "ag_public_ip_name" {
   
 }
-variable "appg_subnet" {
-  type = list(string)
+variable "ag_subnet_id" {
+  
 }

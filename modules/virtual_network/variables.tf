@@ -10,3 +10,7 @@ variable "subnet_frontend_address" {
 variable "subnet_backend_address" {
   type = list(string)
 }
+variable "appg_subnet" {
+  type = list(string)
+}
+
