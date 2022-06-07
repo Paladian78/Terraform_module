@@ -4,4 +4,4 @@ variable "location" {}
 
 variable "sql_managed_instance_name" {}
 
-variable "backend_subnet_id" {}
+variable "subnet_id" {}

@@ -9,7 +9,6 @@ resource "azurerm_storage_account" "main" {
   account_tier             = "Standard"
   account_replication_type = "LRS"
 }
-
 output "strg_key" {
   value = azurerm_storage_account.main.primary_access_key
 }

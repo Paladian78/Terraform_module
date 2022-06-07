@@ -1,20 +1,30 @@
-variable "service_rg_name" {}
-variable "location" {}
-variable "sec_grp" {}
-variable "sec_grp_id" {}
-variable "vnet_name" {}
-variable "mysql_admin_login" {}
-variable "mysql_admin_password" {}
-variable "mysql_server_name" {}
-variable "mysql_database_name" {}
-
-# Provide your azure active directories username and object id
-variable "username" {
-  default     = "Mohammad Amaan Khan"
-  description = "Your Azure Active Directory Username"
+variable "service_rg_name" {
+  type = string
 }
-
-variable "object_id" {
-  default     = "cb982425-08e2-4842-ae76-e1a96116e38a"
-  description = "Object id"
+variable "location" {
+  type = string
+}
+variable "sec_grp" {
+  type = string
+}
+variable "sec_grp_id" {
+  type = string
+}
+variable "vnet_name" {
+  type = string
+}
+variable "mysql_admin_login" {
+  type = string
+}
+variable "mysql_admin_password" {
+  type = string
+}
+variable "mysql_server_name" {
+  type = string
+}
+variable "mysql_database_name" {
+  type = string
+}
+variable "mysql_admin_username" {
+  type = string
 }

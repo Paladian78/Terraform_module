@@ -10,39 +10,38 @@ terraform {
 
 # Configure the Microsoft Azure Provider
 provider "azurerm" {
-  features {}
+  features {
+    key_vault {
+      purge_soft_delete_on_destroy = true
+    }
+  }
 }
 
-#--------------------------------------resource group--------------------------------------#
-
+#deploying resource group for all the services
 resource "azurerm_resource_group" "rg_name" {
   name     = var.service_rg_name
   location = var.location
 }
 
-#--------------------------------------resource group for virtual network--------------------------------------#
-
+#deploying resource group for the virtual network and subnets
 resource "azurerm_resource_group" "vnet_rg" {
   name     = var.vnet_rg_name
   location = var.location
 }
 
-
-#--------------------------------------virtual network--------------------------------------#
-
+#deploying virtual network and subnets
 module "virtual_network" {
-  source          = "./modules/virtual_network"
-  service_rg_name = azurerm_resource_group.vnet_rg.name
-  vnet_name       = var.vnet_name
-  location        = var.location
+  source                  = "./modules/virtual_network"
+  service_rg_name         = azurerm_resource_group.vnet_rg.name
+  vnet_name               = var.vnet_name
+  location                = var.location
   virtual_network_address = var.virtual_network_address
   subnet_frontend_address = var.subnet_frontend_address
-  subnet_backend_address = var.subnet_backend_address
-  appg_subnet         = var.appg_subnet
+  subnet_backend_address  = var.subnet_backend_address
+  appg_subnet             = var.appg_subnet
 }
 
-#--------------------------------------linux virtual machine--------------------------------------#
-
+#deploying linux virtual machine
 module "virtual_machine_linux" {
   source               = "./modules/virtual_machine_linux"
   service_rg_name      = azurerm_resource_group.rg_name.name
@@ -55,8 +54,7 @@ module "virtual_machine_linux" {
   linux_admin_password = var.linux_admin_password
 }
 
-#--------------------------------------windows virtual machine--------------------------------------#
-
+#deploying windows virtual machine
 module "virtual_machine_win" {
   source                 = "./modules/virtual_machine_win"
   service_rg_name        = azurerm_resource_group.rg_name.name
@@ -70,8 +68,7 @@ module "virtual_machine_win" {
   windows_admin_password = var.windows_admin_password
 }
 
-#--------------------------------------event hub--------------------------------------#
-
+#deploying eventhub
 module "eventhub" {
   source          = "./modules/eventhub"
   service_rg_name = azurerm_resource_group.rg_name.name
@@ -80,8 +77,7 @@ module "eventhub" {
   eventhub_name   = var.eventhub_name
 }
 
-#--------------------------------------SQL instance--------------------------------------#
-
+#deploying sql server and database
 module "sql" {
   source               = "./modules/sql"
   service_rg_name      = azurerm_resource_group.rg_name.name
@@ -92,9 +88,11 @@ module "sql" {
   mysql_admin_password = var.mysql_admin_password
   sec_grp              = module.virtual_machine_linux.sec_grp
   sec_grp_id           = module.virtual_machine_linux.sec_grp_id
-  vnet_name            = module.virtual_network.vnet_name
+  vnet_name            = var.vnet_name
+  mysql_admin_username = var.mysql_admin_username
 }
 
+#deploying sql managed instance
 module "sql_instance" {
   source                    = "./modules/sql_instance"
   service_rg_name           = azurerm_resource_group.rg_name.name
@@ -104,8 +102,7 @@ module "sql_instance" {
 }
   
 
-#--------------------------------------storage account--------------------------------------#
-
+#deploying storage account
 module "storage_account" {
   source               = "./modules/storage_account"
   service_rg_name      = azurerm_resource_group.rg_name.name
@@ -113,8 +110,7 @@ module "storage_account" {
   storage_account_name = var.storage_account_name
 }
 
-#--------------------------------------logic app--------------------------------------#
-
+#deploying logic app service and logic app
 module "logic_app" {
   source                      = "./modules/logic_app"
   service_rg_name             = azurerm_resource_group.rg_name.name
@@ -125,29 +121,27 @@ module "logic_app" {
   logic_app_service_plan_name = var.logic_app_service_plan_name
 }
 
-#--------------------------------------key vault--------------------------------------#
-
+#deploying key vault
 module "key_vault" {
   source              = "./modules/key_vault"
-  service_rg_name = azurerm_resource_group.rg_name.name
+  service_rg_name     = azurerm_resource_group.rg_name.name
   location            = var.location
-  key_vault_name      = "test-key-vault-0406"
+  key_vault_name      = var.key_vault_name
 }
 
-#--------------------------------------function app--------------------------------------#
-
+#deploying app service plan for web app and function app
 module "appservice_plan" {
   source                = "./modules/appservice_plan"
-  service_rg_name   = azurerm_resource_group.rg_name.name
+  service_rg_name       = azurerm_resource_group.rg_name.name
   location              = var.location
   app_service_plan_name = var.functionapp_plan_name
-  appservice_tier       = var.apappservice_tier
-  appservice_size       = var.apappservice_size
+  sku_name              = var.sku_name
 }
 
+#deploying function app
 module "function_app" {
-  source = "./modules/function_app"
-  service_rg_name        = azurerm_resource_group.rg_name.name
+  source                     = "./modules/function_app"
+  service_rg_name            = azurerm_resource_group.rg_name.name
   location                   = var.location
   storage_account_name       = var.storage_account_name
   storage_account_access_key = module.storage_account.strg_key
@@ -155,40 +149,35 @@ module "function_app" {
   app_service_plan_id        = module.appservice_plan.app_service_plan_id
 }
 
-#--------------------------------------app service--------------------------------------#
-
-
+#deploying linux web app
 module "app_service" {
   source              = "./modules/app_service"
-  service_rg_name = azurerm_resource_group.rg_name.name
+  service_rg_name     = azurerm_resource_group.rg_name.name
   location            = var.location
   app_name            = var.appservice_name
   app_service_plan_id = module.appservice_plan.app_service_plan_id
 }
 
-#--------------------------------------waf policy--------------------------------------#
-
+#deploying web application firewall policy
 module "waf_policy" {
   source              = "./modules/waf_policy"
-  service_rg_name = azurerm_resource_group.rg_name.name
+  service_rg_name     = azurerm_resource_group.rg_name.name
   location            = var.location
   waf_policy_name     = var.waf_policy_name
 }
 
-#--------------------------------------application gateway--------------------------------------#
-
+#deploying application gateway
 module "app_gateway" {
   source              = "./modules/app_gateway"
-  service_rg_name = azurerm_resource_group.rg_name.name
+  service_rg_name     = azurerm_resource_group.rg_name.name
   location            = var.location
   app_gateway_name    = var.app_gateway_name
-  waf_policy_id       = module.waf_policy.waf_policy_id
+  vnet_name           = var.vnet_name
   ag_public_ip_name   = var.ag_public_ip_name
   ag_subnet_id        = module.virtual_network.ag_subnet_id
 }
 
-#--------------------------------------private link service--------------------------------------#
-
+#deploying private link service
 module "private_link_service" {
   source            = "./modules/private_link_service"
   service_rg_name   = azurerm_resource_group.rg_name.name

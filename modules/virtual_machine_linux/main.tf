@@ -5,8 +5,6 @@ resource "azurerm_network_security_group" "linux_nsg" {
   resource_group_name = var.vnet_rg_name
 }
 
-
-
 resource "azurerm_public_ip" "linux_pi" {
   name                = "linux-publicIP-${var.linux}"
   resource_group_name = var.service_rg_name

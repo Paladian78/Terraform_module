@@ -1,9 +1,7 @@
-
 resource "azurerm_app_service_plan" "main" {
   name                = var.logic_app_service_plan_name
   location            = var.location
   resource_group_name = var.service_rg_name
-
   sku {
     tier = "WorkflowStandard"
     size = "WS1"

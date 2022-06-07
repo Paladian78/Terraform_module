@@ -1,11 +1,11 @@
 resource "azurerm_mssql_managed_instance" "mssql_managed_instance" {
   name                         = var.sql_managed_instance_name
-  resource_group_name          = var.resource_group_name
+  resource_group_name          = var.service_rg_name
   location                     = var.location
   administrator_login          = "mradministrator"
   administrator_login_password = "passqord@1233"
   license_type                 = "BasePrice"
-  subnet_id                    = var.backend_subnet_id
+  subnet_id                    = var.subnet_id
   sku_name                     = "GP_Gen5"
   vcores                       = 4
   storage_size_in_gb           = 32

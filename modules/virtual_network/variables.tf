@@ -1,6 +1,12 @@
-variable "vnet_name" {}
-variable "service_rg_name" {}
-variable "location" {}
+variable "vnet_name" {
+  type = string
+}
+variable "service_rg_name" {
+  type = string
+}
+variable "location" {
+  type = string
+}
 variable "virtual_network_address" {
   type = list(string)
 }

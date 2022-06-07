@@ -1,33 +1,31 @@
 variable "service_rg_name" {
-  description = "variable for resource group name"
+  type = string
 }
 
 variable "location" {
-  default     = "eastasia"
-  description = "Location for Resource Groups"
+  type = string
 }
 
 variable "windows" {
-  default     = "windows-vm-0306"
-  description = "VM name"
+  type = string
 }
 
 variable "vnet_name" {
-  description = "vnet name"
+  type = string
 }
 
 variable "vnet_rg_name" {
-  description = "value for resorce_group_name"
+  type = string
 }
 variable "subnet_id" {
-  
+  type = string
 }
 variable "windows_admin_username" {
-  
+  type = string
 }
 variable "windows_admin_password" {
-  
+  type = string
 }
 variable "windows_name" {
-  
+  type = string
 }

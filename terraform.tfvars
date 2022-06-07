@@ -26,7 +26,7 @@ mysql_server_name = "mymysqlm"
 mysql_database_name = "mydbslq"
 mysql_admin_login  = "mydbuser"
 mysql_admin_password  = "Passw0rd!1234"
-
+mysql_admin_username = "mradminstrator"
 ###function app###
 fnappservice_size = "S1"
 fnappservice_tier = "Standard"
@@ -39,6 +39,9 @@ subnet_frontend_address = ["10.0.1.0/24"]
 subnet_backend_address = ["10.0.2.0/24"]
 appg_subnet = ["10.0.3.0/24"]
 ###privatelink service###
-privateip1 = "10.0.1.17"
-privateip2 = "10.0.1.18"
+privateip1 = "10.0.2.17"
+privateip2 = "10.0.2.18"
+sql_managed_instance_name = "mysqlinstnce"
+sku_name = "S1"
+key_vault_name = "mykeyvalt09875"
 

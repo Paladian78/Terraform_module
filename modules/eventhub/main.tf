@@ -4,10 +4,6 @@ resource "azurerm_eventhub_namespace" "eventhub_namespace" {
   resource_group_name = var.service_rg_name
   sku                 = "Standard"
   capacity            = 1
-
-  # tags = {
-  #   environment = "Production"
-  # }
 }
 
 resource "azurerm_eventhub" "eventhub" {
