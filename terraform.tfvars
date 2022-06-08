@@ -1,3 +1,11 @@
+#**********IMPORTANT VARIABLES**********#
+#to be filled by the user
+subscription_id = ""
+tenant_id = ""
+client_id = ""
+client_secret = ""
+object_id = ""
+#****************************************#
 service_rg_name = "myrggrpa"
 vnet_rg_name = "myvnetrggrpa"
 location = "eastasia"
@@ -46,5 +54,3 @@ key_vault_name = "mykeyvalt09875"
 key_vault_sku = "standard"
 sqlinst_admin = "mradminstrator"
 sqlinst_admin_pass = "Passw0rd!1234"
-#*********#
-access_key = "bJlJvLCKedm8DKyfb3f1NwiTMsDIDdZH+lwHCi8JRivbBBNwm5j7QPlYWdTx0dflh78fSWdi9H05+ASt0A1mHQ=="

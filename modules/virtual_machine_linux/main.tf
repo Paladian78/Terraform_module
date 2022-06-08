@@ -31,11 +31,13 @@ resource "azurerm_network_interface_security_group_association" "netwrk" {
 }
 
 resource "azurerm_virtual_machine" "linux_vm" {
-  name                  = var.linux
-  location              = var.location
-  resource_group_name   = var.service_rg_name
-  network_interface_ids = [azurerm_network_interface.linux_nic.id]
-  vm_size               = "Standard_F2"
+  name                             = var.linux
+  location                         = var.location
+  resource_group_name              = var.service_rg_name
+  network_interface_ids            = [azurerm_network_interface.linux_nic.id]
+  vm_size                          = "Standard_F2"
+  delete_os_disk_on_termination    = true
+  delete_data_disks_on_termination = true
 
   storage_image_reference {
     publisher = "Canonical"

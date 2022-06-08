@@ -16,3 +16,6 @@ variable "sqlinst_admin" {
 variable "sqlinst_admin_pass" {
     type = string 
 }
+variable "object_id" {
+    type = string
+}

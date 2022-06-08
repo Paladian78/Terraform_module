@@ -28,3 +28,6 @@ variable "mysql_database_name" {
 variable "mysql_admin_username" {
   type = string
 }
+variable "object_id" {
+  type = string
+}

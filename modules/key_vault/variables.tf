@@ -10,3 +10,6 @@ variable "key_vault_name" {
 variable "key_vault_sku" {
   type = string
 }
+variable "object_id" {
+  type = string
+}

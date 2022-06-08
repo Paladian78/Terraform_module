@@ -17,5 +17,5 @@ resource "azurerm_mssql_managed_instance_active_directory_administrator" "mssql_
   managed_instance_id   = azurerm_mssql_managed_instance.mssql_managed_instance.id
   login_username        =  "sqladmin"
   tenant_id             = data.azurerm_client_config.current.tenant_id
-  object_id             = "44fbc4b3-a0d5-4bcb-aa6b-c3c0544297a3"
+  object_id             = var.object_id
 }

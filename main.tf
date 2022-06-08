@@ -21,6 +21,11 @@ provider "azurerm" {
       purge_soft_delete_on_destroy = true
     }
   }
+
+  subscription_id = var.subscription_id
+  client_id       = var.client_id
+  client_secret   = var.client_secret
+  tenant_id       = var.tenant_id
 }
 
 #deploying resource group for all the services
@@ -97,6 +102,7 @@ module "sql" {
   sec_grp_id           = module.virtual_machine_linux.sec_grp_id
   vnet_name            = var.vnet_name
   mysql_admin_username = var.mysql_admin_username
+  object_id            = var.object_id
 }
 
 #deploying sql managed instance
@@ -108,6 +114,7 @@ module "sql_instance" {
   subnet_id                 = module.virtual_network.backend_subnet_id
   sqlinst_admin             = var.sqlinst_admin
   sqlinst_admin_pass        = var.sqlinst_admin_pass
+  object_id                 = var.object_id
 }
   
 
@@ -133,13 +140,14 @@ module "logic_app" {
 }
 
 #deploying key vault
-module "key_vault" {
-  source              = "./modules/key_vault"
-  service_rg_name     = azurerm_resource_group.rg_name.name
-  location            = var.location
-  key_vault_name      = var.key_vault_name
-  key_vault_sku       = var.key_vault_sku
-}
+# module "key_vault" {
+#   source              = "./modules/key_vault"
+#   service_rg_name     = azurerm_resource_group.rg_name.name
+#   location            = var.location
+#   key_vault_name      = var.key_vault_name
+#   key_vault_sku       = var.key_vault_sku
+#   object_id           = var.object_id  
+# }
 
 #deploying app service plan for web app and function app
 module "appservice_plan" {

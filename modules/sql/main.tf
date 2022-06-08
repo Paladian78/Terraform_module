@@ -8,7 +8,7 @@ resource "azurerm_mssql_server" "server" {
   minimum_tls_version          = "1.2"
   azuread_administrator {
     login_username = var.mysql_admin_username
-    object_id      = "44fbc4b3-a0d5-4bcb-aa6b-c3c0544297a3"
+    object_id      = var.object_id
   }
 }
 
