@@ -25,6 +25,11 @@ resource "azurerm_network_interface" "linux_nic" {
   }
 }
 
+resource "azurerm_network_interface_security_group_association" "netwrk" {
+  network_interface_id      = azurerm_network_interface.linux_nic.id
+  network_security_group_id = azurerm_network_security_group.linux_nsg.id
+}
+
 resource "azurerm_virtual_machine" "linux_vm" {
   name                  = var.linux
   location              = var.location

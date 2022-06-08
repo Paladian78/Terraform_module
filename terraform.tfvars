@@ -46,3 +46,5 @@ key_vault_name = "mykeyvalt09875"
 key_vault_sku = "standard"
 sqlinst_admin = "mradminstrator"
 sqlinst_admin_pass = "Passw0rd!1234"
+#*********#
+access_key = "bJlJvLCKedm8DKyfb3f1NwiTMsDIDdZH+lwHCi8JRivbBBNwm5j7QPlYWdTx0dflh78fSWdi9H05+ASt0A1mHQ=="

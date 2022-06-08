@@ -1,3 +1,6 @@
+variable "access_key" {
+    type = string 
+}
 variable "service_rg_name" {
     type = string
 }

@@ -27,6 +27,11 @@ resource "azurerm_network_interface" "win_nic" {
   }
 }
 
+resource "azurerm_network_interface_security_group_association" "ntwork" {
+  network_interface_id      = azurerm_network_interface.win_nic.id
+  network_security_group_id = azurerm_network_security_group.win_nsg.id
+}
+
 resource "azurerm_windows_virtual_machine" "win_vm" {
   name                = var.windows_name
   resource_group_name = var.service_rg_name
