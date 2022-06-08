@@ -10,3 +10,6 @@ variable "namespace_name" {
 variable "eventhub_name" {
     type = string
 }
+variable "eventhub_sku" {
+    type = string
+}

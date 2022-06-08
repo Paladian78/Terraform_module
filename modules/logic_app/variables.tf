@@ -16,3 +16,9 @@ variable "storage_account_access_key" {
 variable "logic_app_name" {
     type = string
 }
+variable "logic_skuname" {
+    type = string
+}
+variable "logic_ostype" {
+    type = string
+}

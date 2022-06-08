@@ -40,16 +40,13 @@ variable "namespace_name" {
 variable "eventhub_name" {
     type = string
 }
+variable "eventhub_sku" {
+    type = string
+}
 variable "logic_app_name" {
     type = string
 }
 variable "logic_app_service_plan_name" {
-    type = string
-}
-variable "apappservice_tier" {
-    type = string
-}
-variable "apappservice_size" {
     type = string
 }
 variable "function_app_name" {
@@ -58,23 +55,23 @@ variable "function_app_name" {
 variable "functionapp_plan_name" {
     type = string
 }
-variable "fnappservice_tier" {
-    type = string
-}
-variable "fnappservice_size" {
-    type = string
-}
 variable "appservice_name" {
     type = string
 }
-variable "appservice_plan_name" {
-    type = string
+variable "appservice_plan_ostype" {
+    type = string 
 }
 variable "waf_policy_name" {
     type = string
 }
 variable "app_gateway_name" {
     type = string
+}
+variable "app_gateway_skuname" {
+    type = string
+}
+variable "app_gateway_skutier" {
+    type = string  
 }
 variable "ag_public_ip_name" {
     type = string
@@ -124,6 +121,23 @@ variable "sku_name" {
 variable "key_vault_name" {
     type = string
 }
+variable "key_vault_sku" {
+    type = string
+}
+variable "logic_skuname" {
+    type = string
+}
+variable "logic_ostype" {
+    type = string
+}
+variable "sqlinst_admin" {
+    type = string
+}
+variable "sqlinst_admin_pass" {
+    type = string 
+}
+  
+
   
 
   

@@ -16,3 +16,9 @@ variable "ag_subnet_id" {
 variable "vnet_name" {
   type = string
 }
+variable "app_gateway_skuname" {
+  type = string
+}
+variable "app_gateway_skutier" {
+  type = string 
+}

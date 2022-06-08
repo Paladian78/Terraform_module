@@ -1,12 +1,12 @@
 # Azure Provider source and version being used
-# terraform {
-#   required_providers {
-#     azurerm = {
-#       source  = "hashicorp/azurerm"
-#       version = "=3.0.0"
-#     }
-#   }
-# }
+terraform {
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "=3.0.0"
+    }
+  }
+}
 
 # Configure the Microsoft Azure Provider
 provider "azurerm" {
@@ -75,6 +75,7 @@ module "eventhub" {
   location        = azurerm_resource_group.rg_name.location
   namespace_name  = var.namespace_name
   eventhub_name   = var.eventhub_name
+  eventhub_sku    = var.eventhub_sku
 }
 
 #deploying sql server and database
@@ -99,6 +100,8 @@ module "sql_instance" {
   location                  = var.location
   sql_managed_instance_name = var.sql_managed_instance_name
   subnet_id                 = module.virtual_network.backend_subnet_id
+  sqlinst_admin             = var.sqlinst_admin
+  sqlinst_admin_pass        = var.sqlinst_admin_pass
 }
   
 
@@ -119,6 +122,8 @@ module "logic_app" {
   storage_account_access_key  = module.storage_account.strg_key
   logic_app_name              = var.logic_app_name
   logic_app_service_plan_name = var.logic_app_service_plan_name
+  logic_skuname               = var.logic_skuname
+  logic_ostype                = var.logic_ostype
 }
 
 #deploying key vault
@@ -127,15 +132,17 @@ module "key_vault" {
   service_rg_name     = azurerm_resource_group.rg_name.name
   location            = var.location
   key_vault_name      = var.key_vault_name
+  key_vault_sku       = var.key_vault_sku
 }
 
 #deploying app service plan for web app and function app
 module "appservice_plan" {
-  source                = "./modules/appservice_plan"
-  service_rg_name       = azurerm_resource_group.rg_name.name
-  location              = var.location
-  app_service_plan_name = var.functionapp_plan_name
-  sku_name              = var.sku_name
+  source                 = "./modules/appservice_plan"
+  service_rg_name        = azurerm_resource_group.rg_name.name
+  location               = var.location
+  app_service_plan_name  = var.functionapp_plan_name
+  sku_name               = var.sku_name
+  appservice_plan_ostype = var.appservice_plan_ostype
 }
 
 #deploying function app
@@ -175,6 +182,8 @@ module "app_gateway" {
   vnet_name           = var.vnet_name
   ag_public_ip_name   = var.ag_public_ip_name
   ag_subnet_id        = module.virtual_network.ag_subnet_id
+  app_gateway_skuname = var.app_gateway_skuname
+  app_gateway_skutier = var.app_gateway_skutier
 }
 
 #deploying private link service

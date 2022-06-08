@@ -24,8 +24,8 @@ resource "azurerm_application_gateway" "network" {
   resource_group_name = var.service_rg_name
   location            = var.location
   sku {
-    name     = "WAF_v2"
-    tier     = "WAF_v2"
+    name     = var.app_gateway_skuname
+    tier     = var.app_gateway_skutier
     capacity = 4
   }
   gateway_ip_configuration {

@@ -2,7 +2,7 @@ resource "azurerm_eventhub_namespace" "eventhub_namespace" {
   name                = var.namespace_name
   location            = var.location
   resource_group_name = var.service_rg_name
-  sku                 = "Standard"
+  sku                 = var.eventhub_sku
   capacity            = 1
 }
 

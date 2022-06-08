@@ -2,8 +2,8 @@ resource "azurerm_service_plan" "lg_plan" {
   name                = var.logic_app_service_plan_name
   location            = var.location
   resource_group_name = var.service_rg_name
-  sku_name            = "WS1"
-  os_type             = "Linux" 
+  sku_name            = var.logic_skuname
+  os_type             = var.logic_ostype
 }
 
 resource "azurerm_logic_app_standard" "lg_app" {

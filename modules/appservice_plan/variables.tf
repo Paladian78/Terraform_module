@@ -11,3 +11,6 @@ variable "location" {
 variable "sku_name" {
   type = string
 }
+variable "appservice_plan_ostype" {
+  type = string
+}

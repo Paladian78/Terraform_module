@@ -7,3 +7,6 @@ variable "location" {
 variable "key_vault_name" {
   type = string
 }
+variable "key_vault_sku" {
+  type = string
+}
