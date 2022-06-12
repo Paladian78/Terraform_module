@@ -5,8 +5,6 @@ resource "azurerm_network_security_group" "linux_nsg" {
   resource_group_name = var.vnet_rg_name
 }
 
-
-
 resource "azurerm_public_ip" "linux_pi" {
   name                = "linux-publicIP-${var.linux}"
   resource_group_name = var.service_rg_name
@@ -27,12 +25,19 @@ resource "azurerm_network_interface" "linux_nic" {
   }
 }
 
+resource "azurerm_network_interface_security_group_association" "netwrk" {
+  network_interface_id      = azurerm_network_interface.linux_nic.id
+  network_security_group_id = azurerm_network_security_group.linux_nsg.id
+}
+
 resource "azurerm_virtual_machine" "linux_vm" {
-  name                  = var.linux
-  location              = var.location
-  resource_group_name   = var.service_rg_name
-  network_interface_ids = [azurerm_network_interface.linux_nic.id]
-  vm_size               = "Standard_F2"
+  name                             = var.linux
+  location                         = var.location
+  resource_group_name              = var.service_rg_name
+  network_interface_ids            = [azurerm_network_interface.linux_nic.id]
+  vm_size                          = "Standard_F2"
+  delete_os_disk_on_termination    = true
+  delete_data_disks_on_termination = true
 
   storage_image_reference {
     publisher = "Canonical"

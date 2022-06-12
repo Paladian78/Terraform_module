@@ -1,17 +1,16 @@
-variable "resource_group_name" {
+variable "service_rg_name" {
   
 }
 
 variable "app_service_plan_name" {
-  
+  type = string
 }
-
 variable "location" {
-  
+  type = string
 }
-variable "appservice_tier" {
-  
+variable "sku_name" {
+  type = string
 }
-variable "appservice_size" {
-  
+variable "appservice_plan_ostype" {
+  type = string
 }

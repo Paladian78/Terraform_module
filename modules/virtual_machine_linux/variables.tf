@@ -1,8 +1,24 @@
-variable "service_rg_name" {}
-variable "location" {}
-variable "linux" {}
-variable "vnet_name" {}
-variable "vnet_rg_name" {}
-variable "subnet_id" {}
-variable "linux_admin_username" {}
-variable "linux_admin_password" {}
+variable "service_rg_name" {
+    type = string
+}
+variable "location" {
+    type = string
+}
+variable "linux" {
+    type = string
+}
+variable "vnet_name" {
+    type = string
+}
+variable "vnet_rg_name" {
+    type = string
+}
+variable "subnet_id" {
+    type = string
+}
+variable "linux_admin_username" {
+    type = string
+}
+variable "linux_admin_password" {
+    type = string
+}

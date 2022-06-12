@@ -1,3 +1,11 @@
+#**********IMPORTANT VARIABLES**********#
+#to be filled by the user
+subscription_id = ""
+tenant_id = ""
+client_id = ""
+client_secret = ""
+object_id = ""
+#****************************************#
 service_rg_name = "myrggrpa"
 vnet_rg_name = "myvnetrggrpa"
 location = "eastasia"
@@ -12,33 +20,45 @@ windows_admin_username = "myadmin"
 windows_admin_password = "Passw0rd!1234"
 namespace_name = "mynmspace"
 eventhub_name = "myevnthub"
+eventhub_sku = "Standard"
 logic_app_name = "mylgicaapp"
 logic_app_service_plan_name = "myplnlgicaapp"
+logic_skuname = "WS1"
+logic_ostype = "Linux"
 function_app_name = "myfctionaapp"
 functionapp_plan_name = "myplnfnctionaapp"
 appservice_name = "myaappp"
-appservice_plan_name = "myplnaappp"
+appservice_plan_ostype = "Linux"
 waf_policy_name = "mywafpol"
 app_gateway_name = "myappgw"
+app_gateway_skuname = "WAF_v2"
+app_gateway_skutier = "WAF_v2"
 ag_public_ip_name = "myagpbip"
 privatelink_name = "myplnkym"
 mysql_server_name = "mymysqlm"
 mysql_database_name = "mydbslq"
 mysql_admin_login  = "mydbuser"
 mysql_admin_password  = "Passw0rd!1234"
-
-###function app###
-fnappservice_size = "S1"
-fnappservice_tier = "Standard"
-###app service###
-apappservice_size = "S1"
-apappservice_tier = "Standard"
+mysql_admin_username = "mradminstrator"
 ###virtual network###
 virtual_network_address = ["10.0.0.0/16"]
 subnet_frontend_address = ["10.0.1.0/24"]
 subnet_backend_address = ["10.0.2.0/24"]
 appg_subnet = ["10.0.3.0/24"]
 ###privatelink service###
-privateip1 = "10.0.1.17"
-privateip2 = "10.0.1.18"
-
+privateip1 = "10.0.2.17"
+privateip2 = "10.0.2.18"
+sql_managed_instance_name = "mysqlinstnce"
+sku_name = "S1"
+key_vault_name = "mykeyvalt09875"
+key_vault_sku = "standard"
+sqlinst_admin = "mradminstrator"
+sqlinst_admin_pass = "Passw0rd!1234"
+frontdoor_name = "myfrntcdoor"
+cosmos_db_name = "mydbcsmoso"
+stprivate_name = "mystraggee"
+stpr_name = "mystrrt"
+sqprivate_name = "mysqlli"
+sqpr_name = "mysqgh"
+keyprivate_name = "myvltkey"
+keypr_name = "myvltkeyhtr"

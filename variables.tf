@@ -1,35 +1,114 @@
-variable "service_rg_name" {}
-variable "location" {}
-variable "vnet_rg_name" {}
-variable "storage_account_name" {}
-variable "vnet_name" {}
-variable "linux" {}                   #used as prefix for linux vm
-variable "linux_admin_username" {}
-variable "linux_admin_password" {}
-variable "windows" {}                 #used as prefix for windows vm
-variable "windows_name" {}
-variable "windows_admin_username" {}
-variable "windows_admin_password" {}
-variable "namespace_name" {}
-variable "eventhub_name" {}
-variable "logic_app_name" {}
-variable "logic_app_service_plan_name" {}
-variable "apappservice_tier" {}
-variable "apappservice_size" {}
-variable "function_app_name" {}
-variable "functionapp_plan_name" {}
-variable "fnappservice_tier" {}
-variable "fnappservice_size" {}
-variable "appservice_name" {}
-variable "appservice_plan_name" {}
-variable "waf_policy_name" {}
-variable "app_gateway_name" {}
-variable "ag_public_ip_name" {}
-variable "privatelink_name" {}
-variable "mysql_server_name" {}
-variable "mysql_database_name" {}
-variable "mysql_admin_login" {}
-variable "mysql_admin_password" {}
+variable "subscription_id" {
+    type = string 
+}
+variable "client_secret" {
+    type = string 
+}
+variable "tenant_id" {
+    type = string 
+}
+variable "client_id" {
+    type = string 
+}
+variable "object_id" {
+    type = string  
+}
+variable "service_rg_name" {
+    type = string
+}
+variable "location" {
+    type = string
+}
+variable "vnet_rg_name" {
+    type = string
+}
+variable "storage_account_name" {
+    type = string
+}
+variable "vnet_name" {
+    type = string
+}
+variable "linux" {                  #used as prefix for linux vm
+    type = string
+}                   
+variable "linux_admin_username" {
+    type = string
+}
+variable "linux_admin_password" {
+    type = string
+}
+variable "windows" {                #used as prefix for windows vm
+    type = string
+}                 
+variable "windows_name" {
+    type = string
+}
+variable "windows_admin_username" {
+    type = string
+}
+variable "windows_admin_password" {
+    type = string
+}
+variable "namespace_name" {
+    type = string
+}
+variable "eventhub_name" {
+    type = string
+}
+variable "eventhub_sku" {
+    type = string
+}
+variable "logic_app_name" {
+    type = string
+}
+variable "logic_app_service_plan_name" {
+    type = string
+}
+variable "function_app_name" {
+    type = string
+}
+variable "functionapp_plan_name" {
+    type = string
+}
+variable "appservice_name" {
+    type = string
+}
+variable "appservice_plan_ostype" {
+    type = string 
+}
+variable "waf_policy_name" {
+    type = string
+}
+variable "app_gateway_name" {
+    type = string
+}
+variable "app_gateway_skuname" {
+    type = string
+}
+variable "app_gateway_skutier" {
+    type = string  
+}
+variable "ag_public_ip_name" {
+    type = string
+}
+variable "privatelink_name" {
+    type = string
+}
+variable "mysql_server_name" {
+    type = string
+}
+variable "mysql_database_name" {
+    type = string
+}
+variable "mysql_admin_login" {
+    type = string
+}
+variable "mysql_admin_password" {
+    type = string
+}
+variable "mysql_admin_username" {
+    type = string
+}
 variable "virtual_network_address" {
     type = list(string)
 }
@@ -42,6 +121,61 @@ variable "subnet_backend_address" {
 variable "appg_subnet" {
     type = list(string)
 }
-variable "privateip1" {}
-variable "privateip2" {}
+variable "privateip1" {
+    type = string
+}
+variable "privateip2" {
+    type = string
+}
+variable "sql_managed_instance_name" {
+    type = string
+}
+variable "sku_name" {
+    type = string
+}
+variable "key_vault_name" {
+    type = string
+}
+variable "key_vault_sku" {
+    type = string
+}
+variable "logic_skuname" {
+    type = string
+}
+variable "logic_ostype" {
+    type = string
+}
+variable "sqlinst_admin" {
+    type = string
+}
+variable "sqlinst_admin_pass" {
+    type = string 
+}
+variable "frontdoor_name" {
+    type = string
+}
+variable "cosmos_db_name" {
+    type = string
+}
+variable "stprivate_name" {
+    type = string
+}
+variable "stpr_name" {
+    type = string
+}
+variable "sqprivate_name" {
+    type = string
+}
+variable "sqpr_name" {
+    type = string
+}
+variable "keyprivate_name" {
+    type = string
+}
+variable "keypr_name" {
+    type = string
+}
+
+  
+
   
